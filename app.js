@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var players = require('./routes/players');
 var db = require('./models');
 
 var app = express();
@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/players', players);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -44,6 +44,14 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+db.sequelize.authenticate()
+  .then(function (err) {
+    console.log('Connection established.');
+  })
+  .catch(function (err) {
+    console.log("Unable to connect to database: ", err);
+  });
 
 db.sequelize.sync().then(function () {
   // http.createServer(app).listen(app.get('port'), function () {
