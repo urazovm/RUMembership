@@ -1,39 +1,173 @@
 module.exports = function (sequelize, DataTypes) {
+
+    var notAlphaMsg = "Cannot have non letter characters";
+    var notEmptyMsg = "Cannot be empty";
+    var invalidGenderMsg = "Must be 'Male' or 'Female' according to WFDF/IOC definitions";
+    var notEmailMsg = "Must be a valid email address";
+    var nonUniquePlayerMsg = "Someone with that name, surname and nickname already exists"
+
     var Player = sequelize.define('Player', {
-        firstName: DataTypes.STRING,
-        lastName: DataTypes.STRING,
-        nickName: DataTypes.STRING,
-        //make these alphanumeric
-        dob: DataTypes.DATE,
-        gender: {
+        firstName: {
             type: DataTypes.STRING,
+            allowNull: false,
+            unique: {
+                args: 'uniqueName',
+                msg: nonUniquePlayerMsg
+            },
             validate: {
-                isIn: {
-                    args: [['Male', 'Female']],
-                    msg: "Must be 'Male' or 'Female' according to WFDF/IOC definitions"
+                isAlpha: {
+                    msg: notAlphaMsg
+                },
+                notEmpty: {
+                    msg: notEmptyMsg
                 }
             }
         },
-        student: DataTypes.BOOLEAN,
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: {
+                args: 'uniqueName',
+                msg: nonUniquePlayerMsg
+            },
+            validate: {
+                isAlpha: {
+                    msg: notAlphaMsg
+                },
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        },
+        nickName: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: {
+                args: 'uniqueName',
+                msg: nonUniquePlayerMsg
+            },
+            validate: {
+                isAlpha: {
+                    msg: notAlphaMsg
+                },
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        },
+        // uniqueName: {
+        //     type: DataTypes.VIRTUAL,
+        //     unique: {
+        //         msg: nonUniquePlayerMsg
+        //     },
+        //     get: function () {
+        //         return this.firstName + this.nickName + this.lastName;
+        //         // this.setDataValue('uniqueName', val);
+        //         //this.setDataValue('uniqueName', this.firstName + this.nickName + this.lastName);
+        //     }
+        // },
+        //make these alphanumeric
+        dob: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
+        },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isIn: {
+                    args: [['Male', 'Female']],
+                    msg: invalidGenderMsg
+                }
+            }
+        },
+        student: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
         emailAddress: {
             type: DataTypes.STRING,
             validate: {
-                isEmail: true
+                isEmail: {
+                    msg: notEmailMsg
+                }
             }
         },
-        contactNumber: DataTypes.INTEGER,
-        area: DataTypes.STRING,
-        postCode: DataTypes.STRING,
-        ukuName: DataTypes.STRING,
-        wfdfID: DataTypes.INTEGER,
-        medicalInfo: DataTypes.TEXT
+        contactNumber: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isNumeric: true
+            }
+        },
+        area: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isAlpha: {
+                    msg: notAlphaMsg
+                },
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        },
+        postCode: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                //TODO: Add format validator
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        },
+        ukuName: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: {
+                isAlpha: {
+                    msg: notAlphaMsg
+                },
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        },
+        wfdfID: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: {
+                isAlpha: {
+                    msg: notAlphaMsg
+                },
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        },
+        medicalInfo: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            validate: {
+                notEmpty: {
+                    msg: notEmptyMsg
+                }
+            }
+        }
     }, {
             getterMethods: {
                 fullName: function () {
                     return this.firstName + ' ' + this.lastName;
                 },
                 fullNameWithNick: function () {
-                    return this.firstName + ' "' + this.nickName + '" ' + this.lastName;
+                    if (this.nickName) {
+                        return this.firstName + ' "' + this.nickName + '" ' + this.lastName;
+                    }
+                    return this.fullName;
+                },
+                uniqueName: function () {
+                    return this.firstName + this.nickName + this.lastName;
                 }
             },
             classMethods: {

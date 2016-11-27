@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var players = require('./routes/players');
 var db = require('./models');
+var createDefaultValues = require('./bin/defaultValues');
 
 var app = express();
 
@@ -54,6 +55,7 @@ db.sequelize.authenticate()
   });
 
 db.sequelize.sync().then(function () {
+  createDefaultValues();
   // http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
   // });
