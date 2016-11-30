@@ -3,8 +3,6 @@ var models = require('../models');
 var playersController = require('../controllers/players');
 var router = express.Router();
 
-
-
 router.route('/')
   /* GET users listing. */
   .get(function (req, res) {
