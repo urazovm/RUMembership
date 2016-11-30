@@ -13,7 +13,8 @@ if (!global.hasOwnProperty('db')) {
 
     sequelize = new Sequelize(dbConnectionString, {
         dialect: 'postgres',
-        protocol: 'postgres'
+        protocol: 'postgres',
+        logging: ''
     });
 
     global.db = {

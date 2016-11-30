@@ -7,13 +7,14 @@ module.exports = function (sequelize, DataTypes) {
     var nonUniquePlayerMsg = "Someone with that name, surname and nickname already exists"
 
     var Player = sequelize.define('Player', {
+        //uniqueness doesn't work! Makes all 3 unique, rather than 3 combining into one unique thing...
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: {
-                args: 'uniqueName',
-                msg: nonUniquePlayerMsg
-            },
+            // unique: {
+            //     args: 'uniqueName',
+            //     msg: nonUniquePlayerMsg
+            // },
             validate: {
                 isAlpha: {
                     msg: notAlphaMsg
@@ -26,10 +27,10 @@ module.exports = function (sequelize, DataTypes) {
         lastName: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: {
-                args: 'uniqueName',
-                msg: nonUniquePlayerMsg
-            },
+            // unique: {
+            //     args: 'uniqueName',
+            //     msg: nonUniquePlayerMsg
+            // },
             validate: {
                 isAlpha: {
                     msg: notAlphaMsg
@@ -42,10 +43,10 @@ module.exports = function (sequelize, DataTypes) {
         nickName: {
             type: DataTypes.STRING,
             allowNull: true,
-            unique: {
-                args: 'uniqueName',
-                msg: nonUniquePlayerMsg
-            },
+            // unique: {
+            //     args: 'uniqueName',
+            //     msg: nonUniquePlayerMsg
+            // },
             validate: {
                 isAlpha: {
                     msg: notAlphaMsg
@@ -156,6 +157,10 @@ module.exports = function (sequelize, DataTypes) {
             }
         }
     }, {
+            indexes: [{
+                unique: true,
+                fields: ['firstName', 'nickName', 'lastName']
+            }],
             getterMethods: {
                 fullName: function () {
                     return this.firstName + ' ' + this.lastName;
