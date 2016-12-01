@@ -3,7 +3,5 @@ module.exports = function (sequelize, DataTypes) {
         //level: DataTypes.INTEGER,
         name: DataTypes.STRING
     });
-
-    
     return UserRole;
 }

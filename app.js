@@ -54,7 +54,7 @@ db.sequelize.authenticate()
     console.log("Unable to connect to database: ", err);
   });
 
-db.sequelize.sync().then(function () {
+db.sequelize.sync({force: true}).then(function () {
   createDefaultValues();
   // http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
