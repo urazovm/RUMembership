@@ -19,6 +19,7 @@ module.exports = function (sequelize, DataTypes) {
                     models.Player.belongsToMany(Team, { through: 'TeamCaptains' });
                     models.Player.belongsToMany(Team, { through: 'TeamSpiritCaptains' });
                     Team.hasOne(models.Tournament);
+                    Team.hasMany(models.SpiritScore);
                 }
             }
         });
