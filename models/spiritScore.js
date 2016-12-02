@@ -50,11 +50,11 @@ module.exports = function (sequelize, DataTypes) {
         }
     }, {
             //do a total getter out of 20
-            // classMethods: {
-            //     associate: function (models) {
-            //         SpiritScore.hasOne(models.Team);
-            //     }
-            // }
+            getterMethods: {
+                average: function () {
+                    return (this.rulesKnowledgeAndUse + this.foulsAndBodyContact + this.fairMindedness + this.positiveAttitudeAndSelfControl + this.communication) / 5;
+                }
+            }
         });
     return SpiritScore;
 }
