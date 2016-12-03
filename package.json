@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon --debug ./bin/www"
+    "start": "nodemon --debug ./bin/www",
+    "test": "mocha --recursive"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -21,7 +22,10 @@
     "npm": "3.10.8"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
-    "sequelize-cli": "^2.4.0"
+    "sequelize-cli": "^2.4.0",
+    "sinon": "^1.17.6"
   }
 }

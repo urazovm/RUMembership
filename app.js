@@ -1,3 +1,6 @@
+global.rootRequire = function (name) {
+  return require(__dirname + '/' + name);
+}
 var express = require('express');
 var path = require('path');
 var http = require('http');
@@ -54,7 +57,7 @@ db.sequelize.authenticate()
     console.log("Unable to connect to database: ", err);
   });
 
-db.sequelize.sync({force: true}).then(function () {
+db.sequelize.sync({ force: true }).then(function () {
   createDefaultValues();
   // http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
