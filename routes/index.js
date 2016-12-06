@@ -1,7 +1,8 @@
 var express = require('express');
 var models = require('../models');
-var api = require('./api');
 var router = express.Router();
+
+var api = require('./api');
 
 router.use('/api', api);
 
