@@ -1,6 +1,6 @@
 var express = require('express');
-var models = require('../models');
-var playersController = require('../controllers/players');
+var models = require('../../models');
+var playersController = require('../../controllers/players');
 var router = express.Router();
 
 router.route('/')

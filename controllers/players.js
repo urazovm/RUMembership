@@ -1,5 +1,22 @@
+var Promise = require('bluebird');
 var models = require('../models');
 var utils = require('./utils');
+
+// exports = Promise.method(function getAllPlayers3() {
+//     return models.Player.findAll()
+    
+// });
+
+exports.getAllPlayers2 = function (callback) {
+    //rename once the rest is refactored
+    models.Player.findAll()
+        .then(function (players) {
+            callback(players);
+        })
+        .catch(function (error) {
+            callback(error);
+        });
+}
 
 exports.getAllPlayers = function (res) {
     console.log('in getAllPlayers');
