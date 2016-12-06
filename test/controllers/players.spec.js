@@ -1,14 +1,10 @@
-"use strict"
-var assert = require('chai').assert;
 var expect = require('chai').expect;
-var sinon = require('sinon');
-
 var playerController = require('../../controllers/players');
 
-describe('Controller for the player model', function () {
+describe('Controller for the player model v2', function () {
     describe('player validation', function () {
 
-        it('should check a player for missing values', function () {
+        it('should approve a player with no missing values', function () {
             var newPlayer = {
                 firstName: "TestName",
                 nickName: "",
@@ -27,6 +23,26 @@ describe('Controller for the player model', function () {
                 }]
             }
             expect(playerController.playerHasRequiredValues(newPlayer)).to.be.true;
+        });
+        it('should reject a player with missing required values', function () {
+            var newPlayer = {
+                firstName: "TestName",
+                //nickName: "",
+                // lastName: "TestLastName",
+                dob: "01/01/1970",
+                gender: "Male",
+                student: "false",
+                emailAddress: "test@fake.com",
+                contactNumber: "07285176294",
+                area: "Small Town",
+                postCode: "TT15 8TT",
+                emergencyContacts: [{
+                    name: "TestContactName",
+                    contactNumber: "07928153234",
+                    relationship: "TestContactRelationship"
+                }]
+            }
+            expect(playerController.playerHasRequiredValues(newPlayer)).to.be.false;
         });
         it('should return an empty list if no values are missing', function () {
             var newPlayer = {
@@ -70,11 +86,10 @@ describe('Controller for the player model', function () {
             expect(missingValues).to.have.members(["lastName", "student", "area", "emergencyContacts[0].contactNumber"]);
         });
     });
-    it.skip('should get all the players', function () {
-        var response = sinon.spy();
-        playerController.getAllPlayers(response);
-
-        assert(response.called)
+    it('should get all the players', function () {
+        playerController.getAllPlayers().then(function (players) {
+            expect(players).to.be.empty;
+        });
     });
     it.skip('should create a new player if all required values are provided', function () {
         assert.fail('NYI');

@@ -6,7 +6,10 @@ var router = express.Router();
 router.route('/')
   /* GET users listing. */
   .get(function (req, res) {
-    playersController.getAllPlayers(res);
+    playersController.getAllPlayers()
+      .then(function (players) {
+        res.send(players);
+      });
   })
   .post(function (req, res, next) {
     if (!req.body) {

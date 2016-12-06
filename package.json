@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "nodemon --debug ./bin/www",
+    "prod-start": "node ./bin/www",
     "test": "mocha --recursive"
   },
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
