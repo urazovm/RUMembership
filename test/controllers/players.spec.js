@@ -3,7 +3,10 @@ var playerController = require('../../controllers/players');
 
 describe('Controller for the player model v2', function () {
     describe('player validation', function () {
-
+        it('should provide a list of required values', function () {
+            expect(playerController.getRequiredValues()).to.have.members(["firstName", "lastName", "dob",
+                "gender", "student", "emailAddress", "contactNumber", "area", "postCode", "at least one emergency contact (name, contactNumber, relationship)"]);
+        });
         it('should approve a player with no missing values', function () {
             var newPlayer = {
                 firstName: "TestName",
