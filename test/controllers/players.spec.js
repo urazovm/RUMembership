@@ -1,10 +1,24 @@
+var Promise = require('bluebird');
 var expect = require('chai').expect;
+var sinon = require('sinon');
+var sinonStubPromise = require('sinon-stub-promise');
+sinonStubPromise(sinon);
+var Player = require('../../models').Player;
 var playerController = require('../../controllers/players');
 
-describe('Controller for the player model v2', function () {
+var sandbox;
+beforeEach(function () {
+    sandbox = sinon.sandbox.create();
+});
+
+afterEach(function () {
+    sandbox.restore();
+});
+
+describe('Controller for the player model', function () {
     describe('player validation', function () {
         it('should provide a list of required values', function () {
-            expect(playerController.getRequiredValues()).to.have.members(["firstName", "lastName", "dob",
+            expect(playerController.getRequiredValues()).to.have.members(["firstName", "nickName cannot be null, but can be empty", "lastName", "dob",
                 "gender", "student", "emailAddress", "contactNumber", "area", "postCode", "at least one emergency contact (name, contactNumber, relationship)"]);
         });
         it('should approve a player with no missing values', function () {
@@ -65,7 +79,8 @@ describe('Controller for the player model v2', function () {
                     relationship: "TestContactRelationship"
                 }]
             }
-            expect(playerController.playerGetMissingValues(newPlayer)).to.be.empty;
+            var missing = playerController.playerGetMissingValues(newPlayer);
+            expect(missing).to.be.empty;
         });
         it('should return a list of empty values', function () {
             var newPlayer = {
@@ -89,13 +104,44 @@ describe('Controller for the player model v2', function () {
             expect(missingValues).to.have.members(["lastName", "student", "area", "emergencyContacts[0].contactNumber"]);
         });
     });
-    it('should get all the players', function () {
-        playerController.getAllPlayers().then(function (players) {
-            expect(players).to.be.empty;
-        });
+    it('should get all the players', function (done) {
+        var playerFindAllStubb = sandbox.stub(Player, 'findAll');
+        playerFindAllStubb.returnsPromise().resolves([]);
+        playerController.getAllPlayers()
+            .then(function (players) {
+                expect(players).to.be.empty;
+                done();
+            })
+            .catch(function (error) {
+                done(error);
+            });
     });
-    it.skip('should create a new player if all required values are provided', function () {
-        assert.fail('NYI');
+    it('should create a new player if all required values are provided', function (done) {
+        var newPlayer = {
+            firstName: "TestName",
+            nickName: "",
+            lastName: "TestLastName",
+            dob: "01/01/1970",
+            gender: "Male",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town",
+            postCode: "TT15 8TT",
+            emergencyContacts: [{
+                name: "TestContactName",
+                contactNumber: "07928153234",
+                relationship: "TestContactRelationship"
+            }]
+        }
+        playerController.createPlayer(newPlayer)
+            .then(function (player) {
+                expect(player).to.be.equal.to(newPlayer);
+                done();
+            })
+            .catch(function (error) {
+                done(error);
+            });
     });
     it.skip('should update the players email address', function () {
 
