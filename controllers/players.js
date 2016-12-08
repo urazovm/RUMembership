@@ -1,22 +1,12 @@
 var Promise = require('bluebird');
 var utils = require('./utils');
 var Player = require('../models').Player;
-
-//different module.exports test
-getAllPlayers = Promise.method(function () {
-    return Player.findAll()
-        .then(function (players) {
-            console.log(players);
-            return players
-        }).catch(function (error) {
-            console.log(error);
-            throw error;
-        });
-});
+var EmergencyContact = require('../models').EmergencyContact;
 
 playerGetMissingValues = function (newPlayer) {
     let missing = [];
     missing = utils.requiredVariable(newPlayer.firstName, "firstName", missing);
+    missing = utils.requiredVariable(newPlayer.nickName, "nickName cannot be null, but can be empty", missing);
     missing = utils.requiredVariable(newPlayer.lastName, "lastName", missing);
     missing = utils.requiredVariable(newPlayer.dob, "dob", missing);
     missing = utils.requiredVariable(newPlayer.gender, "gender", missing);
@@ -51,41 +41,64 @@ getRequiredValues = function () {
     return playerGetMissingValues({});
 }
 
-module.exports = {
-    getAllPlayers,
-    playerGetMissingValues,
-    getRequiredValues,
-    playerHasRequiredValues: function (newPlayer) {
-        var missing = this.playerGetMissingValues(newPlayer);
-        return missing.length == 0;
-    },
-    /**
+playerHasRequiredValues = function (newPlayer) {
+    var missing = this.playerGetMissingValues(newPlayer);
+    return missing.length == 0;
+}
+
+getAllPlayers = function () {
+    return new Promise(function (resolve, reject) {
+        return Player.findAll()
+            .then(function (players) {
+                //  console.log(players);
+                resolve(players);
+            }).catch(function (error) {
+                console.log(error);
+                reject(error);
+            });
+    });
+}
+
+/**
      * @param {Object} A JSON player with all required attributes
      * 
      * @returns A list of missing player attributes
      * @returns The created player object
      */
-    createNewPlayer: Promise.method(function (newPlayer) {
-        if (!this.playerHasRequiredValues(newPlayer)) {
-            return this.playerGetMissingValues(newPlayer);
-        }
-
-        models.Player.create(newPlayer)
+createPlayer = function (newPlayer) {
+    return new Promise(function (resolve, reject) {
+        return Player.create(newPlayer)
             .then(function (player) {
                 console.log('player built');
-                models.EmergencyContact.bulkCreate(emergencyContacts, { returning: true })
+                EmergencyContact.bulkCreate(emergencyContacts, { returning: true })
                     .then(function (contacts) {
                         console.log(JSON.stringify(contacts));
                         player.addEmergencyContact(contacts);
 
-                        res.send("Saved player " + player.fullNameWithNick + " this unique name " + player.uniqueName);
+                        resolve("Saved player " + player.fullNameWithNick + " this unique name " + player.uniqueName);
                     }).catch(function (error) {
                         console.log(error);
-                        res.send(error);
+                        reject(error);
                     });
             }).catch(function (error) {
-                console.log(error);
-                res.send(error);
+                console.log('Error creating player');
+                if (error.name = 'SequelizeUniqueConstraintError') {
+                    reject(new Error('Player ' + newPlayer.firstName + " \"" + newPlayer.fullNameWithNick + "\"" + newPlayer.lastName + " already exists"));
+                } else {
+                    reject(error);
+                }
             });
-    })
+    });
+    //Not for this function to deal with!
+    //     if (!this.playerHasRequiredValues(newPlayer)) {
+    //         return this.playerGetMissingValues(newPlayer);
+    //     }
+}
+
+module.exports = {
+    getAllPlayers,
+    playerGetMissingValues,
+    getRequiredValues,
+    playerHasRequiredValues,
+    createPlayer
 }
