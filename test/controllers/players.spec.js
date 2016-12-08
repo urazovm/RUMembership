@@ -121,7 +121,7 @@ describe('Controller for the player model', function () {
     });
     it('should create a new player if all required values are provided', function (done) {
         var newPlayer = {
-            firstName: "TestName",
+            firstName: "TestFirstName",
             nickName: "",
             lastName: "TestLastName",
             dob: "01/01/1970",
@@ -138,15 +138,9 @@ describe('Controller for the player model', function () {
             }]
         }
         var playerCreateStub = sandbox.stub(Player, 'create');
-        // playerCreateStub
-        playerController.createPlayer(newPlayer)
-            .then(function (player) {
-                expect(player).to.be.equal.to(newPlayer);
-                done();
-            })
-            .catch(function (error) {
-                done(error);
-            });
+
+        playerCreateStub.returnsPromise().resolves({ "Magic player": "OK" });
+        expect(playerController.createPlayer(newPlayer)).to.eventually.deep.equal({ "Magic player": "OK" }).notify(done);
     });
     it.skip('should update the players email address', function () {
 

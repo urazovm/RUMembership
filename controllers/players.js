@@ -78,12 +78,14 @@ createPlayer = function (newPlayer) {
                         resolve("Saved player " + player.fullNameWithNick + " this unique name " + player.uniqueName);
                     }).catch(function (error) {
                         //  console.log(error);
+                        //TODO rollback player!
+
                         reject(error);
                     });
             }).catch(function (error) {
                 console.log('Error creating player');
                 if (error.name = 'SequelizeUniqueConstraintError') {
-                    reject(new Error('Player ' + newPlayer.firstName + " \"" + newPlayer.fullNameWithNick + "\"" + newPlayer.lastName + " already exists"));
+                    reject(new Error('Player ' + newPlayer.firstName + " \"" + newPlayer.fullNameWithNick + "\" " + newPlayer.lastName + " already exists"));
                 } else {
                     reject(error);
                 }
