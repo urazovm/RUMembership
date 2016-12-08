@@ -1,5 +1,8 @@
 var Promise = require('bluebird');
-var expect = require('chai').expect;
+var chai = require('chai');
+var chaiPromised = require('chai-as-promised');
+chai.use(chaiPromised);
+var expect = chai.expect;
 var sinon = require('sinon');
 var sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(sinon);
@@ -107,14 +110,14 @@ describe('Controller for the player model', function () {
     it('should get all the players', function (done) {
         var playerFindAllStubb = sandbox.stub(Player, 'findAll');
         playerFindAllStubb.returnsPromise().resolves([]);
-        playerController.getAllPlayers()
-            .then(function (players) {
-                expect(players).to.be.empty;
-                done();
-            })
-            .catch(function (error) {
-                done(error);
-            });
+
+        expect(playerController.getAllPlayers()).to.eventually.be.empty.notify(done);
+    });
+    it('should propogate errors when getting all players', function (done) {
+        var playerFindAllStubb = sinon.stub(Player, 'findAll');
+        playerFindAllStubb.returnsPromise().rejects(new Error('Development Error for test. Pretend it\'s a connection thing'));
+
+        expect(playerController.getAllPlayers()).to.eventually.be.rejected.notify(done);
     });
     it('should create a new player if all required values are provided', function (done) {
         var newPlayer = {
@@ -134,6 +137,8 @@ describe('Controller for the player model', function () {
                 relationship: "TestContactRelationship"
             }]
         }
+        var playerCreateStub = sandbox.stub(Player, 'create');
+        // playerCreateStub
         playerController.createPlayer(newPlayer)
             .then(function (player) {
                 expect(player).to.be.equal.to(newPlayer);

@@ -53,7 +53,7 @@ getAllPlayers = function () {
                 //  console.log(players);
                 resolve(players);
             }).catch(function (error) {
-                console.log(error);
+                // console.log(error);
                 reject(error);
             });
     });
@@ -77,7 +77,7 @@ createPlayer = function (newPlayer) {
 
                         resolve("Saved player " + player.fullNameWithNick + " this unique name " + player.uniqueName);
                     }).catch(function (error) {
-                        console.log(error);
+                        //  console.log(error);
                         reject(error);
                     });
             }).catch(function (error) {
