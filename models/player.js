@@ -1,9 +1,9 @@
 module.exports = function (sequelize, DataTypes) {
 
-    var notAlphaMsg = "Cannot have non letter characters";
-    var notEmptyMsg = "Cannot be empty";
-    var invalidGenderMsg = "Must be 'Male' or 'Female' according to WFDF/IOC definitions";
-    var notEmailMsg = "Must be a valid email address";
+    var notAlphaMsg = " cannot have non letter characters";
+    var notEmptyMsg = " cannot be empty";
+    var invalidGenderMsg = " must be 'Male' or 'Female' according to WFDF/IOC definitions";
+    var notEmailMsg = " must be a valid email address";
     var nonUniquePlayerMsg = "Someone with that name, surname and nickname already exists"
 
     var Player = sequelize.define('Player', {
@@ -17,10 +17,10 @@ module.exports = function (sequelize, DataTypes) {
             // },
             validate: {
                 isAlpha: {
-                    msg: notAlphaMsg
+                    msg: 'firstName' + notAlphaMsg
                 },
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'firstName' + notEmptyMsg
                 }
             }
         },
@@ -33,41 +33,23 @@ module.exports = function (sequelize, DataTypes) {
             // },
             validate: {
                 isAlpha: {
-                    msg: notAlphaMsg
+                    msg: 'lastName' + notAlphaMsg
                 },
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'lastName' + notEmptyMsg
                 }
             }
         },
         nickName: {
             type: DataTypes.STRING,
             allowNull: true,
-            // unique: {
-            //     args: 'uniqueName',
-            //     msg: nonUniquePlayerMsg
-            // },
-            validate: {
-                isAlpha: {
-                    msg: notAlphaMsg
-                },
-                notEmpty: {
-                    msg: notEmptyMsg
+            get: function () {
+                if (!this.getDataValue('nickName')) {
+                    return "";
                 }
+                return this.getDataValue('nickName');
             }
         },
-        // uniqueName: {
-        //     type: DataTypes.VIRTUAL,
-        //     unique: {
-        //         msg: nonUniquePlayerMsg
-        //     },
-        //     get: function () {
-        //         return this.firstName + this.nickName + this.lastName;
-        //         // this.setDataValue('uniqueName', val);
-        //         //this.setDataValue('uniqueName', this.firstName + this.nickName + this.lastName);
-        //     }
-        // },
-        //make these alphanumeric
         dob: {
             type: DataTypes.DATEONLY,
             allowNull: false
@@ -78,7 +60,7 @@ module.exports = function (sequelize, DataTypes) {
             validate: {
                 isIn: {
                     args: [['Male', 'Female']],
-                    msg: invalidGenderMsg
+                    msg: 'gender' + invalidGenderMsg
                 }
             }
         },
@@ -90,7 +72,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             validate: {
                 isEmail: {
-                    msg: notEmailMsg
+                    msg: 'emailAddress' + notEmailMsg
                 }
             }
         },
@@ -98,18 +80,21 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isNumeric: true
+                isNumeric: {
+                    msg: 'contactNumber must be a number'
+                }
             }
         },
         area: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isAlpha: {
-                    msg: notAlphaMsg
+                is: {
+                    args: '^[\\a-zA-Z\\ \\-]*$',
+                    msg: 'areaNotValid'
                 },
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'area' + notEmptyMsg
                 }
             }
         },
@@ -119,7 +104,7 @@ module.exports = function (sequelize, DataTypes) {
             validate: {
                 //TODO: Add format validator
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'postCode' + notEmptyMsg
                 }
             }
         },
@@ -128,10 +113,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             validate: {
                 isAlpha: {
-                    msg: notAlphaMsg
+                    msg: 'ukuName' + notAlphaMsg
                 },
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'ukuName' + notEmptyMsg
                 }
             }
         },
@@ -140,10 +125,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             validate: {
                 isAlpha: {
-                    msg: notAlphaMsg
+                    msg: 'wfdfID' + notAlphaMsg
                 },
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'wfdfID' + notEmptyMsg
                 }
             }
         },
@@ -152,14 +137,14 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             validate: {
                 notEmpty: {
-                    msg: notEmptyMsg
+                    msg: 'medicalInfo' + notEmptyMsg
                 }
             }
         }
     }, {
             indexes: [{
                 unique: true,
-                fields: ['firstName', 'nickName', 'lastName']
+                fields: ['firstName', 'nickName', 'lastName'],
             }],
             getterMethods: {
                 fullName: function () {
