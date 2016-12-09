@@ -104,7 +104,7 @@ describe('Controller for the player model', function () {
                 }]
             }
             var missingValues = playerController.playerGetMissingValues(newPlayer);
-            expect(missingValues).to.have.members(["lastName", "student", "area", "emergencyContacts[0].contactNumber"]);
+            expect(missingValues).to.deep.equal(["lastName", "student", "area", "emergencyContacts[0].contactNumber"]);
         });
     });
     it('should get all the players', function (done) {
@@ -122,7 +122,7 @@ describe('Controller for the player model', function () {
     it('should create a new player if all required values are provided', function (done) {
         var newPlayer = {
             firstName: "TestFirstName",
-            nickName: "",
+            nickName: new Date().toLocaleString(),
             lastName: "TestLastName",
             dob: "01/01/1970",
             gender: "Male",
@@ -131,16 +131,15 @@ describe('Controller for the player model', function () {
             contactNumber: "07285176294",
             area: "Small Town",
             postCode: "TT15 8TT",
-            emergencyContacts: [{
-                name: "TestContactName",
-                contactNumber: "07928153234",
-                relationship: "TestContactRelationship"
-            }]
-        }
-        var playerCreateStub = sandbox.stub(Player, 'create');
+            emergencyContactName: "TestContactName",
+            emergencyContactNumber: "07928153234",
+            emergencyContactRelationship: "TestContactRelationship"
 
-        playerCreateStub.returnsPromise().resolves({ "Magic player": "OK" });
-        expect(playerController.createPlayer(newPlayer)).to.eventually.deep.equal({ "Magic player": "OK" }).notify(done);
+        }
+        // var playerCreateStub = sandbox.stub(Player, 'create');
+
+        //   playerCreateStub.returnsPromise().resolves({ "Magic player": "OK" });
+        expect(playerController.createPlayer(newPlayer)).to.eventually.deep.equal(newPlayer).notify(done);
     });
     it.skip('should update the players email address', function () {
 

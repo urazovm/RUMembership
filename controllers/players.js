@@ -1,7 +1,9 @@
 var Promise = require('bluebird');
 var utils = require('./utils');
-var Player = require('../models').Player;
-var EmergencyContact = require('../models').EmergencyContact;
+var db = require('../models');
+var sequelize = db.sequelize;
+var Player = db.Player;
+var EmergencyContact = db.EmergencyContact;
 
 playerGetMissingValues = function (newPlayer) {
     let missing = [];
@@ -59,42 +61,45 @@ getAllPlayers = function () {
     });
 }
 
+
 /**
      * @param {Object} A JSON player with all required attributes
      * 
-     * @returns A list of missing player attributes
-     * @returns The created player object
+     * @returns A Promise to return the created player object
      */
 createPlayer = function (newPlayer) {
+    console.log('in createPlayer');
+    //  return sequelize.transaction().then(function (t) {
+    //    console.log('in transaction');
     return new Promise(function (resolve, reject) {
-        return Player.create(newPlayer)
-            .then(function (player) {
-                console.log('player built');
-                EmergencyContact.bulkCreate(emergencyContacts, { returning: true })
-                    .then(function (contacts) {
-                        console.log(JSON.stringify(contacts));
-                        player.addEmergencyContact(contacts);
 
-                        resolve("Saved player " + player.fullNameWithNick + " this unique name " + player.uniqueName);
-                    }).catch(function (error) {
-                        //  console.log(error);
-                        //TODO rollback player!
+        return Player.create(newPlayer, {
+            //   include: [EmergencyContact]
+        }).then(function (player) {
+            console.log('player created!');
+            //  for (var i = 0; i < newPlayer.emergencyContacts.length; i++) {
+            //    console.log('looping through ' + i);
+            EmergencyContact.create({
+                name: newPlayer.emergencyContactName,
+                contactNumber: newPlayer.emergencyContactNumber,
+                relationship: newPlayer.emergencyContactRelationship
+            }).then(function (contact) {
+                console.log('made contact');
 
-                        reject(error);
-                    });
-            }).catch(function (error) {
-                console.log('Error creating player');
-                if (error.name = 'SequelizeUniqueConstraintError') {
-                    reject(new Error('Player ' + newPlayer.firstName + " \"" + newPlayer.fullNameWithNick + "\" " + newPlayer.lastName + " already exists"));
-                } else {
-                    reject(error);
-                }
+                player.addEmergencyContact(contact);
+                // contact.setPlayer(player);
+
+                resolve(player);
             });
+            //}
+            console.log('getting eCs');
+        }).catch(function (error) {
+            console.log('in error');
+            reject(error);
+            //      return t.rollback();
+        });
+        //  });
     });
-    //Not for this function to deal with!
-    //     if (!this.playerHasRequiredValues(newPlayer)) {
-    //         return this.playerGetMissingValues(newPlayer);
-    //     }
 }
 
 module.exports = {

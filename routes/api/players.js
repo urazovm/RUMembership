@@ -16,7 +16,15 @@ router.route('/')
       res.send("Please send some JSON");
     }
     else {
-      playersController.addNewPlayer(req.body, res);
+      if (playersController.playerHasRequiredValues(req.body)) {
+
+        playersController.createPlayer(req.body)
+          .then(function (player) {
+            res.send(player);
+          });
+      } else {
+        res.send(playersController.playerGetMissingValues(req.body));
+      }
     }
   });
 
