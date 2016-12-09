@@ -85,7 +85,7 @@ describe('Controller for the player model', function () {
             var missing = playerController.playerGetMissingValues(newPlayer);
             expect(missing).to.be.empty;
         });
-        it('should return a list of empty values', function () {
+        it('should return a list of missing values', function () {
             var newPlayer = {
                 firstName: "TestName",
                 nickName: "",
@@ -114,7 +114,7 @@ describe('Controller for the player model', function () {
         expect(playerController.getAllPlayers()).to.eventually.be.empty.notify(done);
     });
     it('should propogate errors when getting all players', function (done) {
-        var playerFindAllStubb = sinon.stub(Player, 'findAll');
+        var playerFindAllStubb = sandbox.stub(Player, 'findAll');
         playerFindAllStubb.returnsPromise().rejects(new Error('Development Error for test. Pretend it\'s a connection thing'));
 
         expect(playerController.getAllPlayers()).to.eventually.be.rejected.notify(done);
