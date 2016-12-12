@@ -102,10 +102,20 @@ createPlayer = function (newPlayer) {
     });
 }
 
+// addEmergencyContact = function (playerID, emergencyContact) {
+//     return new Promise(function (resolve, reject) {
+//         Player.find({
+//             where: {
+//                 id: playerID
+//             }
+//         })
+//     });
+// }
+
 module.exports = {
     getAllPlayers,
     playerGetMissingValues,
     getRequiredValues,
     playerHasRequiredValues,
-    createPlayer
+    createPlayer: createPlayer
 }

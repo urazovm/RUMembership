@@ -7,6 +7,7 @@ var sinon = require('sinon');
 var sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(sinon);
 var Player = require('../../models').Player;
+var EmergencyContact = require('../../models').EmergencyContact;
 var playerController = require('../../controllers/players');
 
 var sandbox;
@@ -136,10 +137,20 @@ describe('Controller for the player model', function () {
             emergencyContactRelationship: "TestContactRelationship"
 
         }
-        // var playerCreateStub = sandbox.stub(Player, 'create');
+        var templayer = Player.build(newPlayer);
+        var mockPlayer = sinon.mock(templayer);
+        var playerCreateStub = sandbox.stub(Player, 'create');
+        var emergencyCreateStub = sandbox.stub(EmergencyContact, 'create');
 
-        //   playerCreateStub.returnsPromise().resolves({ "Magic player": "OK" });
-        expect(playerController.createPlayer(newPlayer)).to.eventually.deep.equal(newPlayer).notify(done);
+        playerCreateStub.returnsPromise().resolves(mockPlayer);
+        emergencyCreateStub.returnsPromise().resolves({ "EmergencyContact": "OK" });
+
+        playerController.createPlayer(newPlayer).then(function (player) {
+            expect(player).to.equal(mockPlayer);
+            mockPlayer.expects("addEmergencyContact").once().calledWith({ "EmergencyContact": "OK" });
+            done();
+        })
+        // expect(playerController.createPlayer(newPlayer)).to.eventually.deep.equal(newPlayer).notify(done);
     });
     it.skip('should update the players email address', function () {
 

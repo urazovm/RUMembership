@@ -1,0 +1,27 @@
+var chai = require('chai');
+var chaiPromised = require('chai-as-promised');
+chai.use(chaiPromised);
+var expect = chai.expect;
+var issue = require('./pg-native-issue');
+
+beforeEach(function (done) {
+    issue.ExModel.sync({ force: true }).then(function () {
+        done();
+    })
+});
+
+describe('pg-native issue replicator', function () {
+    it('should replicate the issue', function (done) {
+        var expectedModel = {
+            firstAttr: "first example",
+            secondAttr: "second Example"
+        }
+        // issue.createExample().then(function (actualExModel) {
+        //     expect(expectedModel).to.equal(actualExModel.get());
+        //     done();
+        // }).catch(function (error) {
+        //     done(error);
+        // });
+        expect(issue.createExample()).to.eventually.deep.equal(expectedModel).notify(done);
+    });
+});
