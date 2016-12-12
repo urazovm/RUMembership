@@ -61,6 +61,20 @@ getAllPlayers = function () {
     });
 }
 
+getPlayer = function (playerID) {
+    return new Promise(function (resolve, reject) {
+        return Player.find({
+            where: {
+                id: playerID
+            }
+        }).then(function (player) {
+            resolve(player);
+        }).catch(function (error) {
+            reject(error);
+        });
+    });
+}
+
 
 /**
      * @param {Object} A JSON player with all required attributes
@@ -76,10 +90,10 @@ createPlayer = function (newPlayer) {
                 contactNumber: newPlayer.emergencyContactNumber,
                 relationship: newPlayer.emergencyContactRelationship
             }).then(function (contact) {
-                console.log('made contact');
+                //   console.log('made contact');
 
                 player.addEmergencyContact(contact);
-                console.log('added EmergencyContact');
+                //  console.log('added EmergencyContact');
                 resolve(player);
             });
         }).catch(function (error) {
@@ -100,6 +114,7 @@ createPlayer = function (newPlayer) {
 
 module.exports = {
     getAllPlayers,
+    getPlayer,
     playerGetMissingValues,
     getRequiredValues,
     playerHasRequiredValues,

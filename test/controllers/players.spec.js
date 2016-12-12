@@ -10,6 +10,32 @@ var Player = require('../../models').Player;
 var EmergencyContact = require('../../models').EmergencyContact;
 var playerController = require('../../controllers/players');
 
+var testPlayer1 = {
+    firstName: "Test 1 First Name",
+    nickName: "",
+    lastName: "Test 1 Last Name",
+    dob: "01/01/1970",
+    gender: "Male",
+    student: "false",
+    emailAddress: "test@fake.com",
+    contactNumber: "07285176294",
+    area: "Small Town2",
+    postCode: "TT15 8TT"
+}
+
+var testPlayer2 = {
+    firstName: "Test 2 First Name",
+    nickName: "Test Nick",
+    lastName: "Test 2 Last Name",
+    dob: "01/01/1970",
+    gender: "Male",
+    student: "false",
+    emailAddress: "test@fake.com",
+    contactNumber: "07285176294",
+    area: "Small Town",
+    postCode: "TT15 8TT"
+}
+
 var sandbox;
 beforeEach(function () {
     sandbox = sinon.sandbox.create();
@@ -110,9 +136,17 @@ describe('Controller for the player model', function () {
     });
     it('should get all the players', function (done) {
         var playerFindAllStubb = sandbox.stub(Player, 'findAll');
-        playerFindAllStubb.returnsPromise().resolves([]);
+        playerFindAllStubb.returnsPromise().resolves([testPlayer1, testPlayer2]);
 
-        expect(playerController.getAllPlayers()).to.eventually.be.empty.notify(done);
+        expect(playerController.getAllPlayers()).to.eventually.deep.equal([testPlayer1, testPlayer2]).notify(done);
+    });
+    it('should get a player by ID', function (done) {
+        var playerFindStubb = sinon.stub(Player, 'find');
+        playerFindStubb.returnsPromise().resolves(testPlayer1);
+
+        var getPlayerProm = playerController.getPlayer(17);
+        expect(playerFindStubb.calledWith({ where: { id: 17 } })).to.be.true;
+        expect(getPlayerProm).to.eventually.deep.equal(testPlayer1).notify(done);
     });
     it('should propogate errors when getting all players', function (done) {
         var playerFindAllStubb = sandbox.stub(Player, 'findAll');
@@ -152,11 +186,17 @@ describe('Controller for the player model', function () {
         var playerSpy = sinon.spy(templayer, "addEmergencyContact");
 
         playerController.createPlayer(newPlayer).then(function (player) {
-            console.log('in createPlayer then');
+            //  console.log('in createPlayer then');
             expect(playerSpy.calledWith(tempEmergencyContact)).to.be.true;
             expect(player).to.equal(templayer);
             done();
         })
+    });
+    it.skip('should add an extra emergency contact', function () {
+
+    });
+    it.skip('should remove an old emergency contact, but not if it\'s the only one left', function () {
+
     });
     it.skip('should update the players email address', function () {
 
@@ -171,6 +211,9 @@ describe('Controller for the player model', function () {
 
     });
     it.skip('should update the players WFDF Username', function () {
+
+    });
+    it.skip('should update the players area', function () {
 
     });
 });
