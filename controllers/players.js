@@ -68,17 +68,9 @@ getAllPlayers = function () {
      * @returns A Promise to return the created player object
      */
 createPlayer = function (newPlayer) {
-    console.log('in createPlayer');
-    //  return sequelize.transaction().then(function (t) {
-    //    console.log('in transaction');
     return new Promise(function (resolve, reject) {
 
-        return Player.create(newPlayer, {
-            //   include: [EmergencyContact]
-        }).then(function (player) {
-            console.log('player created!');
-            //  for (var i = 0; i < newPlayer.emergencyContacts.length; i++) {
-            //    console.log('looping through ' + i);
+        return Player.create(newPlayer).then(function (player) {
             EmergencyContact.create({
                 name: newPlayer.emergencyContactName,
                 contactNumber: newPlayer.emergencyContactNumber,
@@ -87,18 +79,12 @@ createPlayer = function (newPlayer) {
                 console.log('made contact');
 
                 player.addEmergencyContact(contact);
-                // contact.setPlayer(player);
-
+                console.log('added EmergencyContact');
                 resolve(player);
             });
-            //}
-            console.log('getting eCs');
         }).catch(function (error) {
-            console.log('in error');
             reject(error);
-            //      return t.rollback();
         });
-        //  });
     });
 }
 
@@ -117,5 +103,5 @@ module.exports = {
     playerGetMissingValues,
     getRequiredValues,
     playerHasRequiredValues,
-    createPlayer: createPlayer
+    createPlayer
 }

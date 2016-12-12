@@ -138,19 +138,25 @@ describe('Controller for the player model', function () {
 
         }
         var templayer = Player.build(newPlayer);
-        var mockPlayer = sinon.mock(templayer);
+        var tempEmergencyContact = EmergencyContact.build({
+            name: "TestContactName",
+            contactNumber: "07928153234",
+            relationship: "TestContactRelationship"
+        });
         var playerCreateStub = sandbox.stub(Player, 'create');
         var emergencyCreateStub = sandbox.stub(EmergencyContact, 'create');
 
-        playerCreateStub.returnsPromise().resolves(mockPlayer);
-        emergencyCreateStub.returnsPromise().resolves({ "EmergencyContact": "OK" });
+        playerCreateStub.returnsPromise().resolves(templayer);
+        emergencyCreateStub.returnsPromise().resolves(tempEmergencyContact);
+
+        var playerSpy = sinon.spy(templayer, "addEmergencyContact");
 
         playerController.createPlayer(newPlayer).then(function (player) {
-            expect(player).to.equal(mockPlayer);
-            mockPlayer.expects("addEmergencyContact").once().calledWith({ "EmergencyContact": "OK" });
+            console.log('in createPlayer then');
+            expect(playerSpy.calledWith(tempEmergencyContact)).to.be.true;
+            expect(player).to.equal(templayer);
             done();
         })
-        // expect(playerController.createPlayer(newPlayer)).to.eventually.deep.equal(newPlayer).notify(done);
     });
     it.skip('should update the players email address', function () {
 
