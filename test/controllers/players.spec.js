@@ -48,8 +48,8 @@ afterEach(function () {
 describe('Controller for the player model', function () {
     describe('player validation', function () {
         it('should provide a list of required values', function () {
-            expect(playerController.getRequiredValues()).to.have.members(["firstName", "nickName cannot be null, but can be empty", "lastName", "dob",
-                "gender", "student", "emailAddress", "contactNumber", "area", "postCode", "at least one emergency contact (name, contactNumber, relationship)"]);
+            expect(playerController.getRequiredValues()).to.deep.equal(["firstName", "nickName cannot be null, but can be empty", "lastName", "dob",
+                "gender", "student", "emailAddress", "contactNumber", "area", "postCode", "emergency contact (name, contactNumber, relationship)"]);
         });
         it('should approve a player with no missing values', function () {
             var newPlayer = {
@@ -63,11 +63,11 @@ describe('Controller for the player model', function () {
                 contactNumber: "07285176294",
                 area: "Small Town",
                 postCode: "TT15 8TT",
-                emergencyContacts: [{
+                emergencyContact: {
                     name: "TestContactName",
                     contactNumber: "07928153234",
                     relationship: "TestContactRelationship"
-                }]
+                }
             }
             expect(playerController.playerHasRequiredValues(newPlayer)).to.be.true;
         });
@@ -83,11 +83,11 @@ describe('Controller for the player model', function () {
                 contactNumber: "07285176294",
                 area: "Small Town",
                 postCode: "TT15 8TT",
-                emergencyContacts: [{
+                emergencyContact: {
                     name: "TestContactName",
                     contactNumber: "07928153234",
                     relationship: "TestContactRelationship"
-                }]
+                }
             }
             expect(playerController.playerHasRequiredValues(newPlayer)).to.be.false;
         });
@@ -103,11 +103,11 @@ describe('Controller for the player model', function () {
                 contactNumber: "07285176294",
                 area: "Small Town",
                 postCode: "TT15 8TT",
-                emergencyContacts: [{
+                emergencyContact: {
                     name: "TestContactName",
                     contactNumber: "07928153234",
                     relationship: "TestContactRelationship"
-                }]
+                }
             }
             var missing = playerController.playerGetMissingValues(newPlayer);
             expect(missing).to.be.empty;
@@ -124,14 +124,14 @@ describe('Controller for the player model', function () {
                 contactNumber: "07285176294",
                 //area: "Small Town",
                 postCode: "TT15 8TT",
-                emergencyContacts: [{
+                emergencyContact: {
                     name: "TestContactName",
                     //contactNumber: "07928153234",
                     relationship: "TestContactRelationship"
-                }]
+                }
             }
             var missingValues = playerController.playerGetMissingValues(newPlayer);
-            expect(missingValues).to.deep.equal(["lastName", "student", "area", "emergencyContacts[0].contactNumber"]);
+            expect(missingValues).to.deep.equal(["lastName", "student", "area", "emergencyContact.contactNumber"]);
         });
     });
     it('should get all the players', function (done) {
@@ -192,8 +192,48 @@ describe('Controller for the player model', function () {
             done();
         })
     });
-    it.skip('should add an extra emergency contact', function () {
+    it('should add an emergency contact to a player', function (done) {
+        var ecd = {
+            name: "John Test Smith",
+            contactNumber: "0783726372",
+            relationship: "There is no relationship"
+        }
+        var tempPlayer = Player.build(testPlayer1);
+        var tempEC = EmergencyContact.build(ecd);
 
+        var playerSpy = sinon.spy(tempPlayer, "addEmergencyContact");
+        var emergencyCreateStub = sandbox.stub(EmergencyContact, 'create');
+
+        emergencyCreateStub.returnsPromise().resolves(tempEC)
+
+        playerController.addEmergencyContactToPlayer(tempPlayer, ecd).then(function (player) {
+            expect(playerSpy.calledWith(tempEC)).to.be.true;
+            expect(player).to.deep.equal(tempPlayer);
+            done();
+        });
+    });
+    it('should add an emergency contact to a player found by ID', function (done) {
+        var ecd = {
+            name: "John Test Smith",
+            contactNumber: "0783726372",
+            relationship: "There is no relationship"
+        }
+        var tempPlayer = Player.build(testPlayer1);
+        var tempEC = EmergencyContact.build(ecd);
+
+        var playerStub = sandbox.stub(Player, 'find');
+        var emergencyCreateStub = sandbox.stub(EmergencyContact, 'create');
+
+        playerStub.returnsPromise().resolves(tempPlayer);
+        emergencyCreateStub.returnsPromise().resolves(tempEC);
+
+        var playerSpy = sinon.spy(tempPlayer, "addEmergencyContact");
+
+        playerController.addEmergencyContactToPlayerByID(83, ecd).then(function (player) {
+            expect(playerSpy.calledWith(tempEC)).to.be.true;
+            expect(player).to.deep.equal(tempPlayer);
+            done();
+        });
     });
     it.skip('should remove an old emergency contact, but not if it\'s the only one left', function () {
 

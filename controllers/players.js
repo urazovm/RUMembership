@@ -17,24 +17,14 @@ playerGetMissingValues = function (newPlayer) {
     missing = utils.requiredVariable(newPlayer.contactNumber, "contactNumber", missing);
     missing = utils.requiredVariable(newPlayer.area, "area", missing);
     missing = utils.requiredVariable(newPlayer.postCode, "postCode", missing);
-    let emergencyContacts = newPlayer.emergencyContacts;
-    if (emergencyContacts) {
-        if (emergencyContacts.length >= 1) {
-            for (var i = 0; i < emergencyContacts.length; i++) {
-                let emergencyContactName = emergencyContacts[i].name;
-                missing = utils.requiredVariable(emergencyContactName, "emergencyContacts[" + i + "].name", missing);
-                let emergencyContactNumber = emergencyContacts[i].contactNumber;
-                missing = utils.requiredVariable(emergencyContactNumber, "emergencyContacts[" + i + "].contactNumber", missing);
-                let emergencyContactRelationship = emergencyContacts[i].relationship;
-                missing = utils.requiredVariable(emergencyContactRelationship, "emergencyContacts[" + i + "].relationship", missing);
-            }
-        }
-        else {
-            missing.push("at least one emergency contact (name, contactNumber, relationship)");
-        }
+    let emergencyContact = newPlayer.emergencyContact;
+    if (emergencyContact) {
+        missing = utils.requiredVariable(emergencyContact.name, "emergencyContact.name", missing);
+        missing = utils.requiredVariable(emergencyContact.contactNumber, "emergencyContact.contactNumber", missing);
+        missing = utils.requiredVariable(emergencyContact.relationship, "emergencyContact.relationship", missing);
     }
     else {
-        missing.push("at least one emergency contact (name, contactNumber, relationship)");
+        missing.push("emergency contact (name, contactNumber, relationship)");
     }
     return missing;
 }
@@ -75,26 +65,62 @@ getPlayer = function (playerID) {
     });
 }
 
+addEmergencyContactToPlayer = function (player, emergencyContactData) {
+    //where player is a sequelize instance of Player
+    return new Promise(function (resolve, reject) {
+        EmergencyContact.create(emergencyContactData).then(function (contact) {
+            player.addEmergencyContact(contact);
+            resolve(player);
+        }).catch(function (error) {
+            reject(error);
+        });
+    });
+}
+
+addEmergencyContactToPlayerByID = function (playerID, emergencyContactData) {
+    return new Promise(function (resolve, reject) {
+        getPlayer(playerID).then(function (player) {
+            addEmergencyContactToPlayer(player, emergencyContactData).then(function (player) {
+                resolve(player);
+            }).catch(function (error) {
+                reject(error);
+            });
+        });
+    });
+}
+
+createPlayerWithEmergencyContact = function (newPlayer, newEC) {
+    return new Promise(function (resolve, reject) {
+        return Player.create(newPlayer).then(function (player) {
+            addEmergencyContactToPlayer(player, newEC).then(function (player) {
+                resolve(player);
+            });
+        }).catch(function (error) {
+            reject(error);
+        });
+    });
+}
+
+
+createJustPlayer = function (newPlayer) {
+    return new Promise(function (resolve, reject) {
+        return Player.create(newPlayer).then(function (player) {
+            resolve(player);
+        }).catch(function (error) {
+            reject(error);
+        });
+    });
+}
 
 /**
-     * @param {Object} A JSON player with all required attributes
+     * @param {Object} A JSON player with all required attributes. One Emergency Contact is included with details at the Player level
      * 
      * @returns A Promise to return the created player object
      */
-createPlayer = function (newPlayer) {
+createPlayer = function (newPlayerAndEC) {
     return new Promise(function (resolve, reject) {
-        return Player.create(newPlayer).then(function (player) {
-            EmergencyContact.create({
-                name: newPlayer.emergencyContactName,
-                contactNumber: newPlayer.emergencyContactNumber,
-                relationship: newPlayer.emergencyContactRelationship
-            }).then(function (contact) {
-                //   console.log('made contact');
-
-                player.addEmergencyContact(contact);
-                //  console.log('added EmergencyContact');
-                resolve(player);
-            });
+        createPlayerWithEmergencyContact(newPlayerAndEC, newPlayerAndEC.emergencyContact).then(function (player) {
+            resolve(player);
         }).catch(function (error) {
             reject(error);
         });
@@ -117,5 +143,7 @@ module.exports = {
     playerGetMissingValues,
     getRequiredValues,
     playerHasRequiredValues,
-    createPlayer
+    createPlayer,
+    addEmergencyContactToPlayer,
+    addEmergencyContactToPlayerByID
 }

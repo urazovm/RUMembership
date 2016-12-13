@@ -21,6 +21,8 @@ router.route('/')
         playersController.createPlayer(req.body)
           .then(function (player) {
             res.send(player);
+          }).catch(function (error) {
+            res.send(error);
           });
       } else {
         res.send(playersController.playerGetMissingValues(req.body));
