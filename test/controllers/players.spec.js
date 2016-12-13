@@ -141,7 +141,7 @@ describe('Controller for the player model', function () {
         expect(playerController.getAllPlayers()).to.eventually.deep.equal([testPlayer1, testPlayer2]).notify(done);
     });
     it('should get a player by ID', function (done) {
-        var playerFindStubb = sinon.stub(Player, 'find');
+        var playerFindStubb = sandbox.stub(Player, 'find');
         playerFindStubb.returnsPromise().resolves(testPlayer1);
 
         var getPlayerProm = playerController.getPlayer(17);

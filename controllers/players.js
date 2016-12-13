@@ -83,7 +83,6 @@ getPlayer = function (playerID) {
      */
 createPlayer = function (newPlayer) {
     return new Promise(function (resolve, reject) {
-
         return Player.create(newPlayer).then(function (player) {
             EmergencyContact.create({
                 name: newPlayer.emergencyContactName,
