@@ -14,8 +14,8 @@ router.get('/', function (req, res, next) {
 
 // Once we start with a client and have authentication, 
 // this will redirect to the angular app
-// router.get("/*", authenticationHelpers.isAuthOrRedirect, function(req, res, next) {
-//   res.sendFile(path.join(__dirname, '../', 'index.html'));
-// });
+router.get("/*",  function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'index.html'));
+});
 
 module.exports = router;
