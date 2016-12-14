@@ -1,3 +1,6 @@
 node_modules 
 typings
 .vscode
+# Ignores compiled TypeScript files
+**/client/**/*.map
+**/client/**/*.js
