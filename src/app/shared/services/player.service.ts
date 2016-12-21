@@ -16,20 +16,29 @@ export class PlayerService {
     getPlayers() {
         return this.http
             .get(this._playersURL)
-            .map(this.extractData)
+            .map(this.extractDataArray)
             // .toPromise()
             // .then(response => response.json() as PlayerRPC[])
             .catch(this.handleError);
     }
 
     getPlayer(id: number) {
-
+        return this.http
+            .get(this._playersURL + '/:' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     private extractData(res: Response) {
         let body = res.json();
+        let play = body as PlayerRPC;
+        // console.log(play);
+        return play || {};
+    }
+    private extractDataArray(res: Response) {
+        let body = res.json();
         let play = body as PlayerRPC[];
-        console.log(play);
+        // console.log(play);
         return play || {};
     }
 
