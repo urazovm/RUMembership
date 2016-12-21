@@ -1,5 +1,5 @@
-import { Injectable, Inject } from '@angular/core';
-import { Http, Response, RequestOptionsArgs } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { PlayerRPC } from '../rpc/PlayerRPC';
@@ -8,9 +8,10 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PlayerService {
-    constructor(private http: Http) { }
 
     private _playersURL = '/api/players';
+
+    constructor(private http: Http) { }
 
     getPlayers() {
         return this.http
@@ -19,6 +20,10 @@ export class PlayerService {
             // .toPromise()
             // .then(response => response.json() as PlayerRPC[])
             .catch(this.handleError);
+    }
+
+    getPlayer(id: number) {
+
     }
 
     private extractData(res: Response) {
