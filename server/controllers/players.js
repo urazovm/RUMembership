@@ -51,6 +51,26 @@ getAllPlayers = function () {
     });
 }
 
+getAllPlayersDemo = function () {
+    return new Promise(function (resolve, reject) {
+        var players = [];
+        var player = Player.build({
+            firstName: "Daniel",
+            nickName: "Dan",
+            lastName: "Godbold",
+            dob: "01/01/1970",
+            gender: "Male",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town2",
+            postCode: "TT15 8TT"
+        });
+        players.push(player);
+        resolve(players);
+    });
+}
+
 getPlayer = function (playerID) {
     return new Promise(function (resolve, reject) {
         return Player.find({
@@ -138,7 +158,7 @@ createPlayer = function (newPlayerAndEC) {
 // }
 
 module.exports = {
-    getAllPlayers,
+    getAllPlayers: getAllPlayersDemo,
     getPlayer,
     playerGetMissingValues,
     getRequiredValues,

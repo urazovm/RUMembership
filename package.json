@@ -14,7 +14,8 @@
     "build": "ng build --prod --output-path=dist/client",
     "test-server": "mocha server/test --recursive",
     "_server:build": "tsc -p ./server",
-    "_server:run": "nodemon --debug ./server/bin/www"
+    "_server:run": "nodemon --debug ./server/bin/www",
+    "_client:run": "ng serve --proxy-config proxy.conf.json"
   },
   "author": "Vlado Tešanović",
   "repository": {
