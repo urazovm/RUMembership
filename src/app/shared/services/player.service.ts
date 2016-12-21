@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map'
 export class PlayerService {
     constructor(private http: Http) { }
 
-    private _playersURL = '/api';
+    private _playersURL = '/api/players';
 
     getPlayers() {
         return this.http.get(this._playersURL)
