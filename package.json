@@ -70,6 +70,7 @@
     "pg": "^6.1.2",
     "rxjs": "5.0.0-beta.12",
     "sequelize": "^3.27.0",
+    "serve-favicon": "^2.3.2",
     "ts-helpers": "^1.1.1",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
