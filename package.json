@@ -8,11 +8,11 @@
   "scripts": {
     "start": "concurrently --kill-others \"ng serve --proxy-config proxy.conf.json\" \"npm run _server:run\"",
     "lint": "tslint \"src/**/*.ts\"",
-    "test": "ng test --watch=false",
+    "test": "mocha server/test --recursive",
+    "test-client": "ng test --watch=false",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
     "build": "ng build --prod --output-path=dist/client",
-    "test-server": "mocha server/test --recursive",
     "_server:build": "tsc -p ./server",
     "_server:run": "nodemon --debug ./server/bin/www",
     "_client:run": "ng serve --proxy-config proxy.conf.json",

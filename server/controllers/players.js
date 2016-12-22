@@ -242,8 +242,8 @@ createPlayer = function (newPlayerAndEC) {
 // }
 
 module.exports = {
-    getAllPlayers: getAllPlayersDemo,
-    getPlayer: getPlayerDemo,
+    getAllPlayers: getAllPlayers,
+    getPlayer: getPlayer,
     playerGetMissingValues,
     getRequiredValues,
     playerHasRequiredValues,
