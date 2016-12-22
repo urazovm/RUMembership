@@ -22,6 +22,10 @@
   "repository": {
     "url": "https://github.com/Mayjest/RUMembership"
   },
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "2.2.3",
