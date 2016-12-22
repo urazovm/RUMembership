@@ -147,6 +147,12 @@ module.exports = function (sequelize, DataTypes) {
                 fields: ['firstName', 'nickName', 'lastName'],
             }],
             getterMethods: {
+                casualName: function () {
+                    if (this.nickName && this.nickName !== '') {
+                        return this.nickName;
+                    }
+                    return this.firstName;
+                },
                 fullName: function () {
                     return this.firstName + ' ' + this.lastName;
                 },
