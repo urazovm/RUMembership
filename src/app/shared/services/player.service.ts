@@ -17,8 +17,6 @@ export class PlayerService {
         return this.http
             .get(this._playersURL)
             .map(this.extractDataArray)
-            // .toPromise()
-            // .then(response => response.json() as PlayerRPC[])
             .catch(this.handleError);
     }
 
