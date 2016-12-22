@@ -39,7 +39,6 @@ export class PlayerService {
     }
     private extractDataArray(res: Response) {
         let body = res.json();
-        console.log(body);
         let play = body as PlayerRPC[];
         return play || {};
     }
