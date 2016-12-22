@@ -15,7 +15,8 @@
     "test-server": "mocha server/test --recursive",
     "_server:build": "tsc -p ./server",
     "_server:run": "nodemon --debug ./server/bin/www",
-    "_client:run": "ng serve --proxy-config proxy.conf.json"
+    "_client:run": "ng serve --proxy-config proxy.conf.json",
+    "postinstall": "npm run build"
   },
   "author": "Dan Godbold",
   "repository": {
