@@ -19,10 +19,7 @@ export class PlayerDetailComponent implements OnInit {
 
     getPlayer(id: number) {
         this.playerService.getPlayer(id)
-            .subscribe(player => {
-                this.player = player;
-                console.log(player)
-            },
+            .subscribe(player => this.player = player,
             error => this.errorMessage = <any>error);
     }
 

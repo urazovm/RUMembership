@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes');
 var db = require('./models');
-var createDefaultValues = require('./bin/defaultValues');
+var utils = require('./controllers/utils');
 
 var app = express();
 
@@ -63,7 +63,7 @@ db.sequelize.authenticate()
   });
 
 db.sequelize.sync({ force: true }).then(function () {
-  createDefaultValues();
+  utils.addDefaultValues();
   // http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
   // });
