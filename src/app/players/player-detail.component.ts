@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { PlayerRPC } from '../shared/rpc/playerRPC';
 import { PlayerService } from '../shared/services/player.service';
@@ -15,12 +16,17 @@ export class PlayerDetailComponent implements OnInit {
     updateAll = false;
 
     constructor(private playerService: PlayerService,
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private location: Location) { }
 
     getPlayer(id: number) {
         this.playerService.getPlayer(id)
             .subscribe(player => this.player = player,
             error => this.errorMessage = <any>error);
+    }
+
+    goBack() {
+        this.location.back();
     }
 
     ngOnInit() {

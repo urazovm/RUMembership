@@ -58,7 +58,7 @@
         <input md-input [(ngModel)]="player.medicalInfo" placeholder="none" />
     </div>
     <md-card-actions>
-        <button md-raised-button>Back</button>
-        <button md-raised-button (click)="updateHero">Update</button>
+        <button md-raised-button (click)=goBack()>Back</button>
+        <button md-raised-button (click)="updateHero()">Update</button>
     </md-card-actions>
 </md-card>
