@@ -8,7 +8,7 @@ var sequelize = null;
 
 var dbConnectionString = process.env.DATABASE_URL;
 if (!process.env.DATABASE_URL) {
-    dbConnectionString = "postgres://postgres:Password1@localhost:5432/ruDev";
+    dbConnectionString = "postgres://postgres:Password1@localhost:5432/ruPlayground";
 }
 
 sequelize = new Sequelize(dbConnectionString, {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { PlayerRPC } from '../rpc/PlayerRPC';
+import { PlayerRPC } from '../rpc/playerRPC';
 
 import 'rxjs/add/operator/toPromise';
 
