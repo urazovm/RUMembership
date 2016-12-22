@@ -23,20 +23,27 @@ export class PlayerService {
     }
 
     getPlayer(id: number) {
+        console.log('service id state: ' + id);
         return this.http
-            .get(this._playersURL + '/:' + id)
+            .get(this._playersURL + '/' + id)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     private extractData(res: Response) {
-        let body = res.json();
-        let play = body as PlayerRPC;
-        // console.log(play);
-        return play || {};
+        try {
+            let body = res.json();
+            let play = body as PlayerRPC;
+            // console.log(play);
+            return play || new PlayerRPC;
+        } catch (error) {
+            return new PlayerRPC;
+        }
+
     }
     private extractDataArray(res: Response) {
         let body = res.json();
+        console.log(body);
         let play = body as PlayerRPC[];
         // console.log(play);
         return play || {};

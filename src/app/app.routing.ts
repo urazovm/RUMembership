@@ -2,6 +2,7 @@ import { RouterModule, Route } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { PlayerComponent } from './players/player.component';
+import { PlayerDetailComponent } from './players/player-detail.component';
 
 const routes: Route[] = [
     {
@@ -10,6 +11,10 @@ const routes: Route[] = [
     {
         path: 'player',
         component: PlayerComponent
+    },
+    {
+        path: 'player/detail/:playerID',
+        component: PlayerDetailComponent
     }
 ];
 

@@ -58,6 +58,7 @@ getAllPlayersDemo = function () {
             firstName: "Daniel",
             nickName: "Dan",
             lastName: "Godbold",
+            id: "1",
             dob: "01/01/1970",
             gender: "Male",
             student: "false",
@@ -66,7 +67,36 @@ getAllPlayersDemo = function () {
             area: "Small Town2",
             postCode: "TT15 8TT"
         });
+        var player2 = Player.build({
+            firstName: "Tereza",
+            nickName: "Tree",
+            lastName: "Menclova",
+            id: "2",
+            dob: "01/01/1970",
+            gender: "Female",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town2",
+            postCode: "TT15 8TT"
+        });
+        var player3 = Player.build({
+            firstName: "Ania",
+            nickName: "",
+            lastName: "Godbold",
+            id: "3",
+            dob: "01/01/1970",
+            gender: "Female",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town2",
+            postCode: "TT15 8TT"
+        });
+        // console.log(player);
         players.push(player);
+        players.push(player2);
+        players.push(player3);
         resolve(players);
     });
 }
@@ -82,6 +112,59 @@ getPlayer = function (playerID) {
         }).catch(function (error) {
             reject(error);
         });
+    });
+}
+
+getPlayerDemo = function (playerID) {
+    return new Promise(function (resolve, reject) {
+        var player = Player.build({
+            firstName: "Daniel",
+            nickName: "Dan",
+            lastName: "Godbold",
+            id: "1",
+            dob: "01/01/1970",
+            gender: "Male",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town2",
+            postCode: "TT15 8TT"
+        });
+        var player2 = Player.build({
+            firstName: "Tereza",
+            nickName: "Tree",
+            lastName: "Menclova",
+            id: "2",
+            dob: "01/01/1970",
+            gender: "Female",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town2",
+            postCode: "TT15 8TT"
+        });
+        var player3 = Player.build({
+            firstName: "Ania",
+            nickName: "",
+            lastName: "Godbold",
+            id: "3",
+            dob: "01/01/1970",
+            gender: "Female",
+            student: "false",
+            emailAddress: "test@fake.com",
+            contactNumber: "07285176294",
+            area: "Small Town2",
+            postCode: "TT15 8TT"
+        });
+        if (playerID == 1) {
+            resolve(player);
+        } else if (playerID == 2) {
+            resolve(player2);
+        } else if (playerID == 3) {
+            resolve(player3);
+        } else {
+            reject();
+        }
     });
 }
 
@@ -159,7 +242,7 @@ createPlayer = function (newPlayerAndEC) {
 
 module.exports = {
     getAllPlayers: getAllPlayersDemo,
-    getPlayer,
+    getPlayer: getPlayerDemo,
     playerGetMissingValues,
     getRequiredValues,
     playerHasRequiredValues,

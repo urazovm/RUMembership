@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { PlayerRPC } from '../shared/rpc/playerRPC';
 import { PlayerService } from '../shared/services/player.service';
 
 @Component({
@@ -9,14 +10,26 @@ import { PlayerService } from '../shared/services/player.service';
     templateUrl: 'player-detail.component.html'
 })
 export class PlayerDetailComponent implements OnInit {
+    player: PlayerRPC;
+    errorMessage: string;
+    updateAll = false;
+
     constructor(private playerService: PlayerService,
         private route: ActivatedRoute) { }
 
+    getPlayer(id: number) {
+        this.playerService.getPlayer(id)
+            .subscribe(player => {
+                this.player = player;
+                console.log(player)
+            },
+            error => this.errorMessage = <any>error);
+    }
+
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
-            let id = params['id'];
-            this.playerService.getPlayer(id);
-
+            let id = +params['playerID'];
+            this.getPlayer(id);
         });
     }
 }
