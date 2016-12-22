@@ -27,16 +27,9 @@ app.use(cookieParser());
 app.use('/api', routes);
 
 console.log(app.get('env'));
-// if (app.get('env') === 'production') {
-// console.log(path.join(__dirname, '../dist/client', 'index.html'));
-// app.use('/*', express.static(path.join(__dirname, '../dist/client', 'index.html')));
-// }
-app.get("/*", function (req, res, next) {
-  console.log('redirect to angular');
-  console.log(path.join(__dirname, '../dist/client', 'index.html'));
-  res.sendFile(path.join(__dirname, '../dist/client', 'index.html'));
-});
-
+if (app.get('env') === 'production') {
+  app.use(express.static(path.join(__dirname, '/../dist/client')));
+}
 
 
 // catch 404 and forward to error handler
