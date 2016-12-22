@@ -1,7 +1,7 @@
 {
-  "name": "angular2-express-starter",
-  "version": "1.0.0",
-  "description": "Starter application of Angular2 with Express",
+  "name": "ru-membership",
+  "version": "0.0.1",
+  "description": "Membership Database for Reading Ultimate",
   "main": "server/app.js",
   "license": "MIT",
   "angular-cli": {},
@@ -17,9 +17,9 @@
     "_server:run": "nodemon --debug ./server/bin/www",
     "_client:run": "ng serve --proxy-config proxy.conf.json"
   },
-  "author": "Vlado Tešanović",
+  "author": "Dan Godbold",
   "repository": {
-    "url": "https://github.com/vladotesanovic/angular2-express-starter"
+    "url": "https://github.com/Mayjest/RUMembership"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +29,7 @@
     "@angular/core": "2.2.3",
     "@angular/forms": "2.2.3",
     "@angular/http": "2.2.3",
+    "@angular/material": "^2.0.0-alpha.11-3",
     "@angular/platform-browser": "2.2.3",
     "@angular/platform-browser-dynamic": "2.2.3",
     "@angular/router": "3.2.3",
@@ -55,6 +56,7 @@
     "cors": "^2.8.1",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",
+    "hammerjs": "^2.0.8",
     "jsonwebtoken": "^5.7.0",
     "morgan": "^1.7.0",
     "node-uuid": "^1.4.7",
@@ -70,6 +72,7 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/hammerjs": "^2.0.33",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "codelyzer": "1.0.0-beta.3",

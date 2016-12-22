@@ -97,6 +97,7 @@ getAllPlayersDemo = function () {
         players.push(player);
         players.push(player2);
         players.push(player3);
+        players.sort();
         resolve(players);
     });
 }
