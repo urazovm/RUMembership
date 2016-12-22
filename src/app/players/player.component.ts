@@ -6,9 +6,9 @@ import { PlayerService } from '../shared/services/player.service';
 import { PlayerRPC } from '../shared/rpc/playerRPC';
 
 @Component({
-    moduleId: 'playerComponent',
     selector: 'app-player',
-    templateUrl: './player.component.html'
+    templateUrl: './player.component.html',
+    styleUrls: []
 })
 export class PlayerComponent implements OnInit {
     players: PlayerRPC[];
