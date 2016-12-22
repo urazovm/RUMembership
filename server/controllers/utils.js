@@ -1,5 +1,6 @@
 var models = require('../models');
 var UserRole = models.UserRole;
+var Player = models.Player;
 
 requiredVariable = function (variable, varName, missing) {
   if (typeof variable == 'undefined') {
@@ -18,6 +19,33 @@ checkObject = function (obj, created) {
   else {
     console.log('Nothing created!');
   }
+}
+
+fOCPlayer = function (player) {
+  Player.findOrCreate({
+    where: {
+      firstName: player.firstName,
+      nickName: player.nickName,
+      lastName: player.lastName,
+      dob: player.dob,
+      gender: player.gender,
+      student: player.student,
+      emailAddress: player.emailAddress,
+      contactNumber: player.contactNumber,
+      area: player.area,
+      postCode: player.postCode
+    }
+  }).spread(function (player, created) {
+    if (created) {
+      console.log(player.fullNameWithNick + " made anew");
+    }
+    if (player) {
+      console.log(player.fullNameWithNick + ' exists: ' + JSON.stringify(player));
+    }
+    else {
+      console.log('Nothing created!');
+    }
+  });
 }
 
 addDefaultValues = function () {
@@ -41,6 +69,50 @@ addDefaultValues = function () {
       }
     }).spread(checkObject);
   }
+
+  var player = {
+    firstName: "Daniel",
+    nickName: "Dan",
+    lastName: "Godbold",
+    id: "1",
+    dob: "01/01/1970",
+    gender: "Male",
+    student: "false",
+    emailAddress: "test@fake.com",
+    contactNumber: "07285176294",
+    area: "Small Town",
+    postCode: "TT15 8TT"
+  };
+  var player2 = Player.build({
+    firstName: "Tereza",
+    nickName: "Tree",
+    lastName: "Menclova",
+    id: "2",
+    dob: "01/01/1970",
+    gender: "Female",
+    student: "false",
+    emailAddress: "test@fake.com",
+    contactNumber: "07285176294",
+    area: "Small Town",
+    postCode: "TT15 8TT"
+  });
+  var player3 = Player.build({
+    firstName: "Ania",
+    nickName: "",
+    lastName: "Godbold",
+    id: "3",
+    dob: "01/01/1970",
+    gender: "Female",
+    student: "false",
+    emailAddress: "test@fake.com",
+    contactNumber: "07285176294",
+    area: "Small Town",
+    postCode: "TT15 8TT"
+  });
+  fOCPlayer(player);
+  fOCPlayer(player2);
+  fOCPlayer(player3);
+
 }
 
 module.exports = {
