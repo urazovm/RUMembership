@@ -29,6 +29,15 @@ export class PlayerDetailComponent implements OnInit {
         this.location.back();
     }
 
+    onSubmit() {
+        // this.submitted = true;
+        console.log('Form submitted!');
+    }
+
+
+    updateHero() {
+    }
+
     ngOnInit() {
         this.route.params.forEach((params: Params) => {
             let id = +params['playerID'];

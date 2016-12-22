@@ -1,64 +1,79 @@
 <md-card *ngIf="player">
-    <md-toolbar color="primary">{{player.casualName}}</md-toolbar>
-    <div><label>id: </label>{{player.id}}</div>
-    <div class="playerDetails">
-        <label>First Name: </label>
-        <!-- <md-input-container>-->
-        <input md-input [(ngModel)]="player.firstName" [disabled]="!updateAll" placeholder="first name" />
-        <!--</md-input-container>-->
-    </div>
-    <div class="playerDetails">
-        <label>Nickname: </label>
-        <input md-input [(ngModel)]="player.nickName" placeholder="nickname" />
-    </div>
-    <div class="playerDetails">
-        <label>Last Name: </label>
-        <input [(ngModel)]="player.lastName" [disabled]="!updateAll" placeholder="last name" />
-    </div>
-    <div class="playerDetails">
-        <label>Date of Birth: </label>
-        <input md-input [(ngModel)]="player.dob" [disabled]="!updateAll" placeholder="date of birth" />
-    </div>
-    <div class="playerDetails">
-        <md-radio-group [(ngModel)]="player.gender">
-            <md-radio-button value="Male">Male</md-radio-button>
-            <md-radio-button value="Female">Female</md-radio-button>
-        </md-radio-group>
-    </div>
-    <div class="playerDetails">
-        <label>Student: </label>
-        <md-checkbox [(ngModel)]="player.student" [disabled]=!updateAll></md-checkbox>
-    </div>
-    <div class="playerDetails">
-        <label>Email Address: </label>
-        <input md-input [(ngModel)]="player.emailAddress" [disabled]="!updateAll" placeholder="email@address.com" />
-    </div>
-    <div class="playerDetails">
-        <label>Contact Number: </label>
-        <input md-input [(ngModel)]="player.contactNumber" [disabled]="!updateAll" placeholder="contact number" />
-    </div>
-    <div class="playerDetails">
-        <label>Area: </label>
-        <input md-input [(ngModel)]="player.area" [disabled]="!updateAll" placeholder="area" />
-    </div>
-    <div class="playerDetails">
-        <label>Post Code: </label>
-        <input md-input [(ngModel)]="player.postcode" [disabled]="!updateAll" placeholder="postcode" />
-    </div>
-    <div class="playerDetails">
-        <label>UKU Username: </label>
-        <input md-input [(ngModel)]="player.ukuName" placeholder="uku username" />
-    </div>
-    <div class="playerDetails">
-        <label>WFDF ID: </label>
-        <input [(ngModel)]="player.wfdfID" placeholder="wfdf id" />
-    </div>
-    <div class="playerDetails">
-        <label>Medical Information: </label>
-        <input md-input [(ngModel)]="player.medicalInfo" placeholder="none" />
-    </div>
-    <md-card-actions>
-        <button md-raised-button (click)=goBack()>Back</button>
-        <button md-raised-button (click)="updateHero()">Update</button>
-    </md-card-actions>
+    <md-card-title color="primary"> {{player.casualName}}</md-card-title>
+    <form (ngSubmit)="onSubmit()" #playerForm="ngForm">
+        <div><label>id: </label>{{player.id}}</div>
+        <div class="playerDetails">
+            <label for="firstName">First Name: </label>
+            <!-- <md-input-container>
+                 <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="model.name" name="name"
+               #name="ngModel" >
+                -->
+            <input md-input id="firstName" required [(ngModel)]="player.firstName" name="firstName" #name="ngModel" [disabled]="!updateAll"
+                placeholder="first name" />
+            <!--</md-input-container>-->
+        </div>
+        <div class="playerDetails">
+            <label for="nickName">Nickname: </label>
+            <input md-input id="nickName" [(ngModel)]="player.nickName" name="nickName" #name="ngModel" placeholder="nickname" />
+        </div>
+        <div class="playerDetails">
+            <label>Last Name: </label>
+            <input md-input id="lastName" [(ngModel)]="player.lastName" name="lastName" #name="ngModel" [disabled]="!updateAll" placeholder="last name"
+            />
+        </div>
+        <div class="playerDetails">
+            <label>Date of Birth: </label>
+            <input md-input id="dob" [(ngModel)]="player.dob" name="dob" #name="ngModel" [disabled]="!updateAll" placeholder="date of birth"
+            />
+        </div>
+        <div class="playerDetails">
+            <md-radio-group id="gender" [(ngModel)]="player.gender" name="gender" #name="ngModel">
+                <md-radio-button value="Male">Male</md-radio-button>
+                <md-radio-button value="Female">Female</md-radio-button>
+            </md-radio-group>
+        </div>
+        <div class="playerDetails">
+            <label>Student: </label>
+            <md-checkbox id="student" [(ngModel)]="player.student" name="student" #name="ngModel" [disabled]=!updateAll></md-checkbox>
+        </div>
+        <div class="playerDetails">
+            <label>Email Address: </label>
+            <input md-input id="emailAddress" [(ngModel)]="player.emailAddress" name="emailAddress" #name="ngModel" [disabled]="!updateAll"
+                placeholder="email@address.com" />
+        </div>
+        <div class="playerDetails">
+            <label>Contact Number: </label>
+            <input md-input id="contactNumber" [(ngModel)]="player.contactNumber" name="contactNumber" #name="ngModel" [disabled]="!updateAll"
+                placeholder="contact number" />
+        </div>
+        <div class="playerDetails">
+            <label>Area: </label>
+            <input md-input id="area" [(ngModel)]="player.area" name="area" #name="ngModel" [disabled]="!updateAll" placeholder="area"
+            />
+        </div>
+        <div class="playerDetails">
+            <label>Post Code: </label>
+            <input md-input id="postCode" [(ngModel)]="player.postcode" name="postcode" #name="ngModel" [disabled]="!updateAll" placeholder="postcode"
+            />
+        </div>
+        <div class="playerDetails">
+            <label>UKU Username: </label>
+            <input md-input id="ukuName" [(ngModel)]="player.ukuName" name="ukuName" #name="ngModel" placeholder="uku username" />
+        </div>
+        <div class="playerDetails">
+            <label>WFDF ID: </label>
+            <input id="wfdfID" [(ngModel)]="player.wfdfID" name="wfdfID" #name="ngModel" placeholder="wfdf id" />
+        </div>
+        <div class="playerDetails">
+            <label>Medical Information: </label>
+            <input md-input id="medicalInformation" [(ngModel)]="player.medicalInfo" name="medicalInfo" #name="ngModel" placeholder="none"
+            />
+        </div>
+        <md-card-actions>
+            <button md-raised-button (click)="goBack()">Back</button>
+            <button md-raised-button type="submit" [disabled]="!playerForm.form.valid">Update</button>
+        </md-card-actions>
+    </form>
 </md-card>
