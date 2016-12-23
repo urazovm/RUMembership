@@ -29,7 +29,7 @@
             />
         </div>
         <div class="playerDetails">
-            <md-radio-group id="gender" [(ngModel)]="player.gender" name="gender" #name="ngModel">
+            <md-radio-group id="gender" [(ngModel)]="player.gender" name="gender" #name="ngModel" [disabled]="!updateAll">
                 <md-radio-button value="Male">Male</md-radio-button>
                 <md-radio-button value="Female">Female</md-radio-button>
             </md-radio-group>
@@ -55,7 +55,7 @@
         </div>
         <div class="playerDetails">
             <label>Post Code: </label>
-            <input md-input id="postCode" [(ngModel)]="player.postcode" name="postcode" #name="ngModel" [disabled]="!updateAll" placeholder="postcode"
+            <input md-input id="postCode" [(ngModel)]="player.postCode" name="postcode" #name="ngModel" [disabled]="!updateAll" placeholder="postcode"
             />
         </div>
         <div class="playerDetails">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -11,6 +11,8 @@ import { PlayerService } from '../shared/services/player.service';
     styleUrls: []
 })
 export class PlayerDetailComponent implements OnInit {
+    @ViewChild('playerForm') playerForm;
+
     player: PlayerRPC;
     errorMessage: string;
     updateAll = false;
@@ -32,6 +34,17 @@ export class PlayerDetailComponent implements OnInit {
     onSubmit() {
         // this.submitted = true;
         console.log('Form submitted!');
+        if (this.updateAll) {
+            console.log('admin path');
+            // use the admin path to change everything!
+        }
+        else {
+            console.log('user path');
+            this.playerForm.control.valueChanges
+                .subscribe(values => {
+                    console.log(values);
+                });
+        }
     }
 
 

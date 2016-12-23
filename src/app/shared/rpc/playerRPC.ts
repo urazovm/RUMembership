@@ -11,7 +11,7 @@ export class PlayerRPC {
     emailAddress: string;
     contactNumber: string;
     area: string;
-    postcode: string;
+    postCode: string;
     ukuName: string;
     wfdfID: string;
     medicalInfo: string;
