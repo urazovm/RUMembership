@@ -17,7 +17,6 @@ export class PlayerDetailComponent implements OnInit {
     origPlayer: PlayerRPC;
     player: PlayerRPC;
     errorMessage: string;
-    updateAll = false;
 
     constructor(private playerService: PlayerService,
         private route: ActivatedRoute,
@@ -37,16 +36,9 @@ export class PlayerDetailComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.updateAll) {
-            console.log('admin path');
-            // use the admin path to change everything!
-        }
-        else {
-            this.playerService.updatePlayer(this.player).subscribe(player => {
-                console.log('success');
-            })
-        }
+
     }
+
 
 
     ngOnInit() {

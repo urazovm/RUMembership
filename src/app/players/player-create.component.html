@@ -1,0 +1,73 @@
+<md-card *ngIf="player">
+    <md-card-title color="primary"> {{player.casualName}}</md-card-title>
+    <form (ngSubmit)="onSubmit()" #playerForm="ngForm">
+        <div><label>id: </label>{{player.id}}</div>
+        <div class="playerDetails">
+            <label for="firstName">First Name: </label>
+            <!-- <md-input-container>
+                 <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="model.name" name="name"
+               #name="ngModel" >
+                -->
+            <input md-input id="firstName" required [(ngModel)]="player.firstName" name="firstName" #name="ngModel" placeholder="first name"
+            />
+            <!--</md-input-container>-->
+        </div>
+        <div class="playerDetails">
+            <label for="nickName">Nickname: </label>
+            <input md-input id="nickName" [(ngModel)]="player.nickName" name="nickName" #name="ngModel" placeholder="nickname" />
+        </div>
+        <div class="playerDetails">
+            <label>Last Name: </label>
+            <input md-input id="lastName" [(ngModel)]="player.lastName" name="lastName" #name="ngModel" placeholder="last name" />
+        </div>
+        <div class="playerDetails">
+            <label>Date of Birth: </label>
+            <input md-input id="dob" [(ngModel)]="player.dob" name="dob" #name="ngModel" placeholder="date of birth" />
+        </div>
+        <div class="playerDetails">
+            <md-radio-group id="gender" [(ngModel)]="player.gender" name="gender" #name="ngModel">
+                <md-radio-button value="Male">Male</md-radio-button>
+                <md-radio-button value="Female">Female</md-radio-button>
+            </md-radio-group>
+        </div>
+        <div class="playerDetails">
+            <label>Student: </label>
+            <md-checkbox id="student" [(ngModel)]="player.student" name="student" #name="ngModel"></md-checkbox>
+        </div>
+        <div class="playerDetails">
+            <label>Email Address: </label>
+            <input md-input id="emailAddress" [(ngModel)]="player.emailAddress" name="emailAddress" #name="ngModel" </div>
+            <div class="playerDetails">
+                <label>Contact Number: </label>
+                <input md-input id="contactNumber" [(ngModel)]="player.contactNumber" name="contactNumber" #name="ngModel" placeholder="contact number"
+                />
+            </div>
+            <div class="playerDetails">
+                <label>Area: </label>
+                <input md-input id="area" [(ngModel)]="player.area" name="area" #name="ngModel" placeholder="area" />
+            </div>
+            <div class="playerDetails">
+                <label>Post Code: </label>
+                <input md-input id="postCode" [(ngModel)]="player.postCode" name="postcode" #name="ngModel" placeholder="postcode" />
+            </div>
+            <div class="playerDetails">
+                <label>UKU Username: </label>
+                <input md-input id="ukuName" [(ngModel)]="player.ukuName" name="ukuName" #name="ngModel" placeholder="uku username" />
+            </div>
+            <div class="playerDetails">
+                <label>WFDF ID: </label>
+                <input id="wfdfID" [(ngModel)]="player.wfdfID" name="wfdfID" #name="ngModel" placeholder="wfdf id" />
+            </div>
+            <div class="playerDetails">
+                <label>Medical Information: </label>
+                <input md-input id="medicalInformation" [(ngModel)]="player.medicalInfo" name="medicalInfo" #name="ngModel" placeholder="none"
+                />
+            </div>
+            <md-card-actions>
+                <button md-raised-button (click)="goBack()">Back</button>
+                <button md-raised-button type="submit" [disabled]="!playerForm.form.valid">Update</button>
+            </md-card-actions>
+    </form>
+</md-card>
