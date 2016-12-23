@@ -55,6 +55,6 @@ I figured if I was spending that much time on it I'd get something out of it mys
 # Architecture
 The server is a NodeJS app using ExpressJS to handle basically everything. It uses a PostgreSQL database for persistence, with Sequelize as the ORM between Postgres and the app. The data model is all defined /server/models, and an early version is below, though it's undergone some changes since then:
 
- ![ORM](./ormModel.png)
+ ![ORM](./ormModel.PNG)
 
  The client is written in Angular2. Current plans are to use [Angular2/Material](https://material.angular.io/) and [Google's Material Design Principles](https://material.io/guidelines/) to make everything look pretty and work on both desktop and mobile/tablet.
