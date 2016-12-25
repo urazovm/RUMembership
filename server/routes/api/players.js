@@ -42,6 +42,8 @@ router.route('/:playerID')
   })
   .put(function (req, res) {
     // update player info
+    console.log('put player!');
+    res.send('put captured, will do stuff later');
   });
 
 module.exports = router;

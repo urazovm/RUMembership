@@ -28,7 +28,7 @@ export class PlayerService {
     }
 
     updatePlayer(playerRPC: PlayerRPC) {
-        return this.http.post(this._playersURL + '/' + playerRPC.id, playerRPC)
+        return this.http.put(this._playersURL + '/' + playerRPC.id, playerRPC)
             .map(function (res: Response) {
                 console.log('got a response!')
             })

@@ -45,6 +45,9 @@ fOCPlayer = function (player) {
     else {
       console.log('Nothing created!');
     }
+  }).catch(function (error) {
+    console.log(player.nickName + " " + player.firstName + ' had a problem!');
+    console.log(error);
   });
 }
 
@@ -90,7 +93,7 @@ addDefaultValues = function () {
     id: "2",
     dob: "01/01/1970",
     gender: "Female",
-    student: "false",
+    student: "true",
     emailAddress: "test@fake.com",
     contactNumber: "07285176294",
     area: "Small Town",
