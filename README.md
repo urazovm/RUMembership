@@ -48,14 +48,14 @@ This is deployed automatically from successful commits to the RUMembership maste
 Feel free to create your own Heroku account and deploy what you want. You'll need to attach a PostgreSQL database to it. See the Heroku user guides for how to do all this.
 
 # Background
-The current RU membership and finance system uses a linked set of Google Sheets and Forms on Google Drive. It's a big improvement over what we had before that doesn't allow for as many risks as the previous finance/attendance sheet did, but is unfortunately fairly complicated and slow to update changes. It means that the rest of the committee has a much easier job doing the day to day management of attendance, tournament sign ups and the club finances, but it does mean I have to maintain it and had new 'features' when needed. Mainly cause I'm the only one who was willing to try writing it all and now I'm the only one who knows how it all works.
+The current RU membership and finance system uses a linked set of Google Sheets and Forms on Google Drive. It's a big improvement over what we had before that doesn't allow for as many risks as the previous finance/attendance sheet did, but is unfortunately fairly complicated and slow to update changes. It means that the rest of the committee has a much easier job doing the day to day management of attendance, tournament sign ups and the club finances, but it does mean I have to maintain it and add new 'features' when needed. Mainly cause I'm the only one who was willing to try writing it all and now I'm the only one who knows how it all works.
 
 I figured if I was spending that much time on it I'd get something out of it myself as well, and I've been meaning to learn Node/Javascript for forever anyway - I'm a Java developer by trade. 
 
 # Architecture
 The server is a NodeJS app using ExpressJS to handle basically everything. It uses a PostgreSQL database for persistence, with Sequelize as the ORM between Postgres and the app. The data model is all defined /server/models, and an early version is below, though it's undergone some changes since then (mainly due to the way Sequelize defines/creates join tables):
 
- ![ORM](./ormModel.PNG)
+ ![ORM](./docs/ormModel.PNG)
 
  The client is written in Angular2. Current plans are to use [Angular2/Material](https://material.angular.io/) and [Google's Material Design Principles](https://material.io/guidelines/) to make everything look pretty and work on both desktop and mobile/tablet.
 
