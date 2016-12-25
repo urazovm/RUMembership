@@ -7,11 +7,11 @@ import { PlayerRPC } from '../shared/rpc/playerRPC';
 import { PlayerService } from '../shared/services/player.service';
 
 @Component({
-    selector: 'app-player-detail',
-    templateUrl: 'player-detail.component.html',
+    selector: 'app-player-create',
+    templateUrl: './player-create.component.html',
     styleUrls: []
 })
-export class PlayerDetailComponent implements OnInit {
+export class PlayerCreateComponent implements OnInit {
     @ViewChild('playerForm') playerForm: NgForm;
 
     origPlayer: PlayerRPC;

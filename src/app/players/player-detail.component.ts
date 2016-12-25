@@ -8,7 +8,7 @@ import { PlayerService } from '../shared/services/player.service';
 
 @Component({
     selector: 'app-player-detail',
-    templateUrl: 'player-detail.component.html',
+    templateUrl: './player-detail.component.html',
     styleUrls: []
 })
 export class PlayerDetailComponent implements OnInit {
