@@ -127,6 +127,25 @@ createPlayer = function (newPlayerAndEC) {
     });
 }
 
+updatePlayerMinorInfo = function (newPlayer) {
+    return new Promise(function (resolve, reject) {
+        Player.findById(newPlayer.id)
+            .then(function (player) {
+
+                player.update({
+                    nickName: newPlayer.nickName,
+                    ukuName: newPlayer.ukuName,
+                    wfdfID: newPlayer.wfdfID,
+                    medicalInfo: newPlayer.medicalInfo
+                }).then(function (updatedPlayer) {
+                    resolve({ 'message': 'Successfully updated minor player info', 'player': updatedPlayer.get() });
+                });
+            }).catch(function (error) {
+                reject(error);
+            })
+    });
+}
+
 updateUKUUsername = function (playerID, newUsername) {
     return new Promise(function (resolve, reject) {
         Player.findById(playerID)
@@ -160,5 +179,6 @@ module.exports = {
     playerHasRequiredValues,
     createPlayer,
     addEmergencyContactToPlayer,
-    addEmergencyContactToPlayerByID
+    addEmergencyContactToPlayerByID,
+    updatePlayerMinorInfo
 }

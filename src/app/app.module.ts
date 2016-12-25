@@ -6,6 +6,7 @@ import { MaterialModule } from '@angular/material';
 
 import { PlayerComponent } from './players/player.component';
 import { PlayerDetailComponent } from './players/player-detail.component';
+import { PlayerCreateComponent } from './players/player-create.component';
 
 import { PlayerService } from './shared/services/player.service';
 
@@ -19,7 +20,8 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     PlayerComponent,
-    PlayerDetailComponent
+    PlayerDetailComponent,
+    PlayerCreateComponent
   ],
   imports: [
     routing,

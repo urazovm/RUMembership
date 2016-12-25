@@ -42,8 +42,13 @@ router.route('/:playerID')
   })
   .put(function (req, res) {
     // update player info
-    console.log('put player!');
-    res.send('put captured, will do stuff later');
+    playersController.updatePlayerMinorInfo(req.body).then(function (succ) {
+      res.json(succ.player);
+    }).catch(function (error) {
+      res.send(error);
+    })
+    // console.log('put player!');
+    // res.send('put captured, will do stuff later');
   });
 
 module.exports = router;

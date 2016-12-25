@@ -35,6 +35,17 @@ export class PlayerService {
             .catch(this.handleError);
     }
 
+    createPlayer(playerRPC: PlayerRPC) {
+        return this.http.post(this._playersURL, playerRPC)
+            .map(function (res: Response) {
+                console.log('got a response!');
+                console.log(res);
+                let body = res.json();
+                console.log(body);
+                return res.json().player;
+            })
+    }
+
     private extractData(res: Response) {
         try {
             let body = res.json();

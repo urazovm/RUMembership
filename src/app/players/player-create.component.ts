@@ -14,37 +14,24 @@ import { PlayerService } from '../shared/services/player.service';
 export class PlayerCreateComponent implements OnInit {
     @ViewChild('playerForm') playerForm: NgForm;
 
-    origPlayer: PlayerRPC;
     player: PlayerRPC;
-    errorMessage: string;
 
     constructor(private playerService: PlayerService,
         private route: ActivatedRoute,
         private location: Location) { }
-
-    getPlayer(id: number) {
-        this.playerService.getPlayer(id)
-            .subscribe(player => {
-                this.player = player;
-                this.origPlayer = player
-            },
-            error => this.errorMessage = <any>error);
-    }
 
     goBack() {
         this.location.back();
     }
 
     onSubmit() {
-
+        this.playerService.createPlayer(this.player).subscribe(player => {
+            console.log('Success!');
+            console.log(player);
+        });
     }
 
-
-
     ngOnInit() {
-        this.route.params.forEach((params: Params) => {
-            let id = +params['playerID'];
-            this.getPlayer(id);
-        });
+        this.player = new PlayerRPC();
     }
 }
