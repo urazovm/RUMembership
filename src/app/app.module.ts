@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
+import { LoginComponent } from './users/login.component';
 import { PlayerComponent } from './players/player.component';
 import { PlayerDetailComponent } from './players/player-detail.component';
 import { PlayerCreateComponent } from './players/player-create.component';
 
 import { PlayerService } from './shared/services/player.service';
+import { UserService } from './shared/services/user.service';
 
 import { routing } from './app.routing';
 
@@ -19,6 +21,7 @@ import 'hammerjs';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     PlayerComponent,
     PlayerDetailComponent,
     PlayerCreateComponent
@@ -27,10 +30,11 @@ import 'hammerjs';
     routing,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [PlayerService],
+  providers: [PlayerService, UserService],
   bootstrap: [
     AppComponent
   ]

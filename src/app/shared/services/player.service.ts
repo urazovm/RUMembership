@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { PlayerRPC } from '../rpc/playerRPC';
 
-import 'rxjs/add/operator/toPromise';
-
 @Injectable()
 export class PlayerService {
 

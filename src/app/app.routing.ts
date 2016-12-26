@@ -1,13 +1,18 @@
 import { RouterModule, Route } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
+import { LoginComponent } from './users/login.component';
 import { PlayerComponent } from './players/player.component';
 import { PlayerDetailComponent } from './players/player-detail.component';
 import { PlayerCreateComponent } from './players/player-create.component';
 
 const routes: Route[] = [
     {
-        path: '', pathMatch: 'full', redirectTo: 'player'
+        path: '', pathMatch: 'full', redirectTo: 'login'
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     },
     {
         path: 'player',

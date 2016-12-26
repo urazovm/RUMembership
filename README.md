@@ -53,7 +53,7 @@ The current RU membership and finance system uses a linked set of Google Sheets 
 I figured if I was spending that much time on it I'd get something out of it myself as well, and I've been meaning to learn Node/Javascript for forever anyway - I'm a Java developer by trade. 
 
 # Architecture
-The server is a NodeJS app using ExpressJS to handle basically everything. It uses a PostgreSQL database for persistence, with Sequelize as the ORM between Postgres and the app. The data model is all defined /server/models, and an early version is below, though it's undergone some changes since then (mainly due to the way Sequelize defines/creates join tables):
+The server is a NodeJS app using ExpressJS to handle basically everything. It uses a PostgreSQL database for persistence, with Sequelize as the ORM between Postgres and the app. The data model is all defined in /server/models, and an early version is below, though it's undergone some changes since then (mainly due to the way Sequelize defines/creates join tables):
 
  ![ORM](./docs/ormModel.PNG)
 
