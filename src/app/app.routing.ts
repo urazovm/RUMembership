@@ -2,7 +2,7 @@ import { RouterModule, Route } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { LoginComponent } from './users/login.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './users/register.component';
 import { PlayerComponent } from './players/player.component';
 import { PlayerDetailComponent } from './players/player-detail.component';
 import { PlayerCreateComponent } from './players/player-create.component';
