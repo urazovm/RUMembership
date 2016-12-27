@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var players = require('./players');
+var authentication = require('./authentication');
 
 //add all other api routes here
 router.use('/players', players);
+router.use('/authentication', authentication);
 
 //generic get call
 router.get('/', function (req, res) {
