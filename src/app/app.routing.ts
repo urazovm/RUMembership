@@ -2,6 +2,7 @@ import { RouterModule, Route } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { LoginComponent } from './users/login.component';
+import { RegisterComponent } from './users/register.component';
 
 const routes: Route[] = [
     {
@@ -10,6 +11,10 @@ const routes: Route[] = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
     }
 ];
 

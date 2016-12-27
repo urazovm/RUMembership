@@ -25,17 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     loginForm: FormGroup;
 
-    /**
-     * Boolean used in telling the UI
-     * that the form has been submitted
-     * and is awaiting a response
-     */
     submitted: boolean = false;
-
-    /**
-     * Diagnostic message from received
-     * form request error
-     */
     errorDiagnostic: string;
 
     constructor(private _userService: UserService, private _router: Router, private formBuilder: FormBuilder) {

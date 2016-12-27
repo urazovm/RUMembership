@@ -8,6 +8,7 @@ import { PlayerModule } from './players/player.module';
 //above should bring in the player routing too?
 
 import { LoginComponent } from './users/login.component';
+import { RegisterComponent } from './users/register.component';
 
 import { PlayerService } from './shared/services/player.service';
 import { UserService } from './shared/services/user.service';
@@ -21,6 +22,8 @@ import 'hammerjs';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    RegisterComponent,
     LoginComponent
   ],
   imports: [
