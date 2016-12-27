@@ -24,7 +24,7 @@ passport.use(
                  * the local provider, and that the password hashs
                  * match correctly.
                  */
-                return User.findOne({ where: { username: username, provider: 'local' } }).then(function (user) {
+                return User.findOne({ where: { username: username } }).then(function (user) {
                     if (!user) { return done(null, false); }
                     if (!user.verifyPassword(password)) { return done(null, false); }
                     return done(null, user);

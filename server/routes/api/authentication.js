@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 
 var usersController = require('../../controllers/users');
+var authUtils = require('./authUtils');
 
 var router = express.Router();
 
@@ -27,6 +28,15 @@ router.post('/local', function (request, response, next) {
 
         }
     })(request, response, next);
+});
+
+router.post('/register', authUtils.isNotAuthOrRedirect, function (request, response, next) {
+    usersController.registerUser(request.body).then(function (user) {
+        response.json(user);
+    }).catch(function (error) {
+        console.log(error);
+        response.status(400).json({ "reason": error.message });
+    });
 });
 
 module.exports = router;
