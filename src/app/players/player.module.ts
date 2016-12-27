@@ -10,12 +10,15 @@ import { PlayerCreateComponent } from './player-create.component';
 
 import { PlayerService } from '../shared/services/player.service';
 
+import { PlayerRoutingModule } from './player-routing.module';
+
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        PlayerRoutingModule,
         MaterialModule.forRoot()
     ],
     exports: [],
