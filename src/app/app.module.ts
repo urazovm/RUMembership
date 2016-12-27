@@ -5,13 +5,14 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { PlayerModule } from './players/player.module';
+//above should bring in the player routing too?
 
 import { LoginComponent } from './users/login.component';
 
 import { PlayerService } from './shared/services/player.service';
 import { UserService } from './shared/services/user.service';
 
-import { routing } from './app.routing';
+import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 
@@ -23,7 +24,7 @@ import 'hammerjs';
     LoginComponent
   ],
   imports: [
-    routing,
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
