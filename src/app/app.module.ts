@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { LoginComponent } from './users/login.component';
+import { RegisterComponent } from './register/register.component';
 import { PlayerComponent } from './players/player.component';
 import { PlayerDetailComponent } from './players/player-detail.component';
 import { PlayerCreateComponent } from './players/player-create.component';
@@ -22,6 +23,7 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
     PlayerComponent,
     PlayerDetailComponent,
     PlayerCreateComponent
