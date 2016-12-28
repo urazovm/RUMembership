@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var http = require('http');
 var favicon = require('serve-favicon');
@@ -18,9 +19,10 @@ app.use(favicon(path.join(__dirname, 'public', 'ru.jpg')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(session({ secret: "insect_chair_course_crysalis_times9" }))
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
 
 app.use('/api', routes);
 
