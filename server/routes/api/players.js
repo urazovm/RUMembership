@@ -1,12 +1,13 @@
 var express = require('express');
 var models = require('../../models');
 var playersController = require('../../controllers/players');
+var authUtils = require('./authUtils');
 var router = express.Router();
 
 ///players
 router.route('/')
   /* GET users listing. */
-  .get(function (req, res) {
+  .get(authUtils.isAuth, function (req, res) {
     playersController.getAllPlayers()
       .then(function (players) {
         res.send(players);

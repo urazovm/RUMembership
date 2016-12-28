@@ -3,6 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 
 import { LoginComponent } from './users/login.component';
 import { RegisterComponent } from './users/register.component';
+import { UnauthenticatedGuard } from './unauthenticated.guard';
 
 const routes: Route[] = [
     {
@@ -10,11 +11,13 @@ const routes: Route[] = [
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [UnauthenticatedGuard]
     },
     {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate: [UnauthenticatedGuard]
     }
 ];
 
