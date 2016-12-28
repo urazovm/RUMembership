@@ -10,8 +10,9 @@ import { PlayerModule } from './players/player.module';
 import { LoginComponent } from './users/login.component';
 import { RegisterComponent } from './users/register.component';
 
-import { PlayerService } from './shared/services/player.service';
 import { UserService } from './shared/services/user.service';
+
+import { UnauthenticatedGuard } from './unauthenticated.guard';
 
 import { AppRoutingModule } from './app.routing';
 
@@ -35,7 +36,10 @@ import 'hammerjs';
     PlayerModule,
     MaterialModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    UnauthenticatedGuard
+  ],
   bootstrap: [
     AppComponent
   ]

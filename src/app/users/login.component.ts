@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.errorDiagnostic = null;
 
         this._userService.login(this.loginForm.value).subscribe(data => {
+            console.log(data);
             this._router.navigate(['/player']);
         },
             error => {

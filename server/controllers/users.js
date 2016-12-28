@@ -10,11 +10,23 @@ function getUser(userID) {
             }
         })
             .then(function (user) {
-                console.log(user);
                 resolve(user);
                 // return truncateUserObject(user);
             }).catch(function (error) {
-                console.log(error);
+                reject(error);
+            });
+    });
+}
+
+function getMiniUser(userID) {
+    return new Promise(function (resolve, reject) {
+        getUser(userID)
+            .then(function (user) {
+                resolve({
+                    "username": user.username,
+                    "email": user.email
+                });
+            }).catch(function (error) {
                 reject(error);
             });
     });
@@ -49,5 +61,6 @@ function registerUser(userAttributes) {
 
 module.exports = {
     getUser,
+    getMiniUser,
     registerUser
 }

@@ -6,8 +6,6 @@ var authUtils = require('./authUtils');
 
 var router = express.Router();
 
-
-
 router.post('/local', function (request, response, next) {
     passport.authenticate('local', function (error, user, info) {
         if (!user) {
@@ -20,7 +18,7 @@ router.post('/local', function (request, response, next) {
                     response.json({ "error": "Server error" });
                 }
             });
-            return usersController.getUser(user.id).then(function (user) {
+            return usersController.getMiniUser(user.id).then(function (user) {
                 return response.json(user);
             }).catch(function (error) {
                 return response.json(error);
@@ -38,5 +36,10 @@ router.post('/register', authUtils.isNotAuthOrRedirect, function (request, respo
         response.status(400).json({ "reason": error.message });
     });
 });
+
+router.route('/authenticated')
+    .get(authUtils.isAuth, function (request, response, next) {
+        response.json({ "authenticated": true });
+    });
 
 module.exports = router;
