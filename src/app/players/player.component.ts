@@ -11,6 +11,7 @@ import { PlayerRPC } from '../shared/rpc/playerRPC';
     styleUrls: []
 })
 export class PlayerComponent implements OnInit {
+    title = 'List all Players';
     players: PlayerRPC[];
     selectedPlayer: PlayerRPC;
     errorMessage: string;
