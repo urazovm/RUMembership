@@ -7,6 +7,8 @@ import { MaterialModule } from '@angular/material';
 import { PlayerModule } from './players/player.module';
 //above should bring in the player routing too?
 
+import { MainComponent } from './main/main.component';
+
 import { LoginComponent } from './users/login.component';
 import { RegisterComponent } from './users/register.component';
 
@@ -25,7 +27,7 @@ import 'hammerjs';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    LoginComponent
+    MainComponent
   ],
   imports: [
     AppRoutingModule,

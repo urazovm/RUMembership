@@ -5,6 +5,8 @@ import { LoginComponent } from './users/login.component';
 import { RegisterComponent } from './users/register.component';
 import { UnauthenticatedGuard } from './unauthenticated.guard';
 
+import { MainComponent } from './main/main.component';
+
 const routes: Route[] = [
     {
         path: '', pathMatch: 'full', redirectTo: 'login'
@@ -18,6 +20,10 @@ const routes: Route[] = [
         path: 'register',
         component: RegisterComponent,
         canActivate: [UnauthenticatedGuard]
+    },
+    {
+        path: 'ui-test',
+        component: MainComponent
     }
 ];
 
