@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'main',
+    selector: 'app-main',
     templateUrl: './main.component.html',
-    styles: ['./main.component.css']
+    styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
     name = 'Test Name';
