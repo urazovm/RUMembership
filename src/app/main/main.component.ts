@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
     selector: 'app-main',
@@ -10,7 +11,22 @@ export class MainComponent implements OnInit {
     username = 'testname';
     title = 'UI Test Screen';
 
-    constructor() { }
+    loggedIn = false;
 
-    ngOnInit() { }
+    constructor(private userService: UserService) { }
+
+    ngOnInit() {
+        this.getMe();
+    }
+
+    getMe() {
+        this.userService.getMe().subscribe(me => {
+            if (me) {
+                this.loggedIn = true;
+                console.log(me);
+                this.name = me.emailaddress;
+                this.username = me.username;
+            }
+        });
+    }
 }
