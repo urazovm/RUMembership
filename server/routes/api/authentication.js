@@ -46,9 +46,9 @@ router.route('/me')
     .get(authUtils.isAuth, function (req, res, next) {
         res.json({
             "me": {
-                "emailAddress": req.session.passport.user.emailAddress,
+                "emailAddress": req.session.passport.user.email,
                 "username": req.session.passport.user.username,
-                // "profile_picture": req.session.passport.user.profile_picture,
+                "profilePicture": req.session.passport.user.profilePicture,
                 "last_active": req.session.passport.user.last_active
             }
         });

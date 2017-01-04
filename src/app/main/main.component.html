@@ -1,15 +1,15 @@
 <md-sidenav-layout>
     <md-sidenav #sidenav>
         <div *ngIf="loggedIn" id="user-profile">
-            <img [attr.src]="profile_picture" />
-            <p>{{name}}</p>
+            <img [attr.src]="profilePicture" />
             <p>{{username}}</p>
+            <p>{{email}}</p>
         </div>
         <div *ngIf="!loggedIn">
             <img [attr.src]="no_user" />
             <p>Login:</p>
 
-            <button md-raised-button [routerLink]="['/login']" color="accent">Register</button>
+            <button md-raised-button [routerLink]="['/login']" color="primary">Login</button>
         </div>
 
         <md-nav-list (click)="sidenav.close()">

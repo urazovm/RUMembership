@@ -7,8 +7,9 @@ import { UserService } from '../shared/services/user.service';
     styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-    name = 'Test Name';
+    email = 'Test Name';
     username = 'testname';
+    profilePicture = '';
     title = 'UI Test Screen';
 
     loggedIn = false;
@@ -24,8 +25,9 @@ export class MainComponent implements OnInit {
             if (me) {
                 this.loggedIn = true;
                 console.log(me);
-                this.name = me.emailaddress;
+                this.email = me.emailaddress;
                 this.username = me.username;
+                this.profilePicture = me.profilePicture;
             }
         });
     }
