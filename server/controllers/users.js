@@ -41,7 +41,7 @@ function registerUser(userAttributes) {
         // userAttributes.provider = 'local';
         // userAttributes.profile_picture = 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg';
         if (!userAttributes.profilePicture) {
-            userAttributes.profilePicture = 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg';
+            userAttributes.profilePicture = 'assets/empty_user.jpg';
         }
         console.log(userAttributes.password);
 
