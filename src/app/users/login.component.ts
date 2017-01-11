@@ -15,13 +15,13 @@ import { Subscription } from 'rxjs/Subscription';
     styleUrls: []
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit/*, OnDestroy*/ {
     title = 'Login';
     registerLink = '/register';
 
-    authenticatedObs: Observable<boolean>;
-    userServiceSub: Subscription;
-    authSub: Subscription;
+    //    authenticatedObs: Observable<boolean>;
+    //  userServiceSub: Subscription;
+    // authSub: Subscription;
 
     loginForm: FormGroup;
 
@@ -41,12 +41,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     }
 
-    authenticated(): Observable<boolean> {
-        if (this.authenticatedObs) return this.authenticatedObs;
-        this.authenticatedObs = this._userService.authenticated()
-            .map(data => { return data.authenticated });
-        return this.authenticatedObs;
-    }
+    // authenticated(): Observable<boolean> {
+    //     if (this.authenticatedObs) return this.authenticatedObs;
+    //     this.authenticatedObs = this._userService.authenticated()
+    //         .map(data => { return data.authenticated });
+    //     return this.authenticatedObs;
+    // }
 
 
 
@@ -63,8 +63,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.errorDiagnostic = null;
 
         this._userService.login(this.loginForm.value).subscribe(data => {
-            console.log(data);
-            this._router.navigate(['/player']);
+            console.log('logged in', data);
+            this._router.navigate(['/']);
         },
             error => {
                 this.submitted = false;
@@ -72,9 +72,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             });
     }
 
-    ngOnDestroy() {
-        if (this.userServiceSub) this.userServiceSub.unsubscribe();
-        if (this.authSub) this.authSub.unsubscribe();
-    }
+    // ngOnDestroy() {
+    //     if (this.userServiceSub) this.userServiceSub.unsubscribe();
+    //     if (this.authSub) this.authSub.unsubscribe();
+    // }
 
 }

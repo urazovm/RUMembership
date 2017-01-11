@@ -12,7 +12,7 @@ import { PlayerService } from '../shared/services/player.service';
 
 import { PlayerModuleGuard } from './player-module.guard';
 
-import { PlayerRoutingModule } from './player-routing.module';
+// import { PlayerRoutingModule } from './player-routing.module';
 
 @NgModule({
     imports: [
@@ -20,7 +20,7 @@ import { PlayerRoutingModule } from './player-routing.module';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        PlayerRoutingModule,
+        // PlayerRoutingModule,
         MaterialModule.forRoot()
     ],
     exports: [],

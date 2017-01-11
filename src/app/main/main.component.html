@@ -37,27 +37,7 @@
     </md-toolbar>
 
     <div class="content">
-        <md-card elevation="5">
-            <md-card-title>
-                <h2>{{title}}</h2>
-            </md-card-title>
-            <md-card-subtitle>
-                <h2>This doesn't work</h2>
-            </md-card-subtitle>
-            <md-card-content>
-                <p>This doesn't work. It's only here to fill the page out a bit</p>
-                <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">-->
-                <md-input required placeholder="Username"></md-input>
-                <md-input required type="password" placeholder="Password"></md-input>
-                <button type="submit" md-raised-button color="primary">Login</button>
-                <!--</form>-->
-                <md-spinner *ngIf="submitted" mode="indeterminate"></md-spinner>
-                <p class="error" *ngIf="errorDiagnostic">{{errorDiagnostic}}</p>
-                <br>
-                <hr>
-                <button (click)="register()" md-raised-button color="accent">Register</button>
-            </md-card-content>
-        </md-card>
+        <router-outlet></router-outlet>
     </div>
 
 </md-sidenav-layout>

@@ -15,6 +15,7 @@ import { RegisterComponent } from './users/register.component';
 import { UserService } from './shared/services/user.service';
 
 import { UnauthenticatedGuard } from './unauthenticated.guard';
+import { MainComponentGuard } from './main/main-component.guard';
 
 import { AppRoutingModule } from './app.routing';
 
@@ -40,7 +41,8 @@ import 'hammerjs';
   ],
   providers: [
     UserService,
-    UnauthenticatedGuard
+    UnauthenticatedGuard,
+    MainComponentGuard
   ],
   bootstrap: [
     AppComponent

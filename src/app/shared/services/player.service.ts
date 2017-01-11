@@ -61,7 +61,7 @@ export class PlayerService {
     }
 
     private handleError(error: Response) {
-        console.error(error);
+        console.error('Exception', error);
         return Observable.throw(error.json().error || 'Server error');
     }
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+// import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PlayerComponent } from './player.component';
@@ -7,28 +7,28 @@ import { PlayerDetailComponent } from './player-detail.component';
 import { PlayerModuleGuard } from './player-module.guard';
 
 
-const routes: Routes = [
+const PlayerRoutes: Routes = [
     {
-        path: 'player',
+        path: '',
         component: PlayerComponent,
         canActivate: [PlayerModuleGuard]
     },
     {
-        path: 'player/detail/:playerID',
+        path: 'detail/:playerID',
         component: PlayerDetailComponent,
         canActivate: [PlayerModuleGuard]
     },
     {
-        path: 'player/new',
+        path: 'new',
         component: PlayerCreateComponent,
         canActivate: [PlayerModuleGuard]
     }
 ];
 
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-})
-export class PlayerRoutingModule { }
+// @NgModule({
+//     imports: [RouterModule.forChild(PlayerRoutes)],
+//     exports: [RouterModule],
+// })
+// export class PlayerRoutingModule { }
 
 export const routedComponents = [PlayerComponent];
