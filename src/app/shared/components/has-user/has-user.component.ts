@@ -22,7 +22,7 @@ export class HasUserComponent implements OnInit {
         this.userService.getMe().subscribe(me => {
             if (me) {
                 this.loggedIn = true;
-                this.email = me.emailaddress;
+                this.email = me.emailAddress;
                 this.username = me.username;
                 this.profilePicture = me.profilePicture;
             }
