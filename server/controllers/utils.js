@@ -2,6 +2,7 @@ var models = require('../models');
 var User = models.User;
 var UserRole = models.UserRole;
 var Player = models.Player;
+var TeamRole = models.TeamRole;
 
 requiredVariable = function (variable, varName, missing) {
   if (typeof variable == 'undefined') {
@@ -67,7 +68,7 @@ addDefaultValues = function () {
   var teamRoles = ["Captain", "ViceCaptain", "SpiritCaptain"];
 
   for (var i = 0; i < teamRoles.length; i++) {
-    models.TeamRole.findOrCreate({
+    TeamRole.findOrCreate({
       where: {
         name: teamRoles[i]
       }
@@ -91,7 +92,15 @@ addDefaultValues = function () {
     else {
       console.log('Nothing created!');
     }
-
+    UserRole.find({
+      where:
+      {
+        name: "GlobalAdmin"
+      }
+    }).then(function (adminRole) {
+      ruUser.addUserRole(adminRole);
+      console.log('Added admin role');
+    });
   });
 
   var player = {

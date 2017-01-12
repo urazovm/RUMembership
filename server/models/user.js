@@ -9,7 +9,8 @@ module.exports = function (sequelize, DataTypes) {
     }, {
             classMethods: {
                 associate: function (models) {
-                    User.hasMany(models.UserRole);
+                    User.belongsToMany(models.UserRole, { through: 'UserInRole' });
+                    models.UserRole.belongsToMany(User, { through: 'UserInRole' });
                     User.belongsTo(models.Player);
                 },
                 generateHash: function (password) {
