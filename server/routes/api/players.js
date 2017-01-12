@@ -7,7 +7,7 @@ var router = express.Router();
 ///players
 router.route('/')
   /* GET users listing. */
-  .get(authUtils.isAuth, function (req, res) {
+  .get(authUtils.isAuthAndAdmin, function (req, res) {
     playersController.getAllPlayers()
       .then(function (players) {
         res.send(players);

@@ -33,6 +33,26 @@ function getMiniUser(userID) {
     });
 }
 
+function userHasRole(userID, userRole) {
+    return new Promise(function (resolve, reject) {
+        getUser(userID)
+            .then(function (user) {
+                user.getUserRoles().then(function (roles) {
+                    var hasRole = false;
+                    for (var i = 0; i < roles.length; i++) {
+                        var role = roles[i];
+                        var roleName = role.name;
+                        if (role.name === userRole) {
+                            hasRole = true;
+                        }
+                    }
+                    resolve(hasRole);
+                });
+
+            });
+    });
+}
+
 
 
 function registerUser(userAttributes) {
@@ -67,5 +87,6 @@ function registerUser(userAttributes) {
 module.exports = {
     getUser,
     getMiniUser,
-    registerUser
+    registerUser,
+    userHasRole
 }

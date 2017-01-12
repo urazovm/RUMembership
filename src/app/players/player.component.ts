@@ -26,7 +26,7 @@ export class PlayerComponent implements OnInit {
     }
 
     onSelect(player: PlayerRPC): void {
-        let link = ['player/detail', player.id];
+        let link = ['player', player.id];
         this.router.navigate(link);
     }
 
