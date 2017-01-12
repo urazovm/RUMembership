@@ -1,4 +1,5 @@
 var models = require('../models');
+var User = models.User;
 var UserRole = models.UserRole;
 var Player = models.Player;
 
@@ -72,6 +73,26 @@ addDefaultValues = function () {
       }
     }).spread(checkObject);
   }
+
+  User.findOrCreate({
+    where: {
+      username: "ruAdmin",
+      email: "rdgultimate@gmail.com",
+      encryptedPassword: "$2a$08$zSC0OyJm3/nUHcgMb2kWtus0zpSn7h48rMAhbydRghaDl7Y5hnG0e",
+      profilePicture: 'assets/ru.jpg'
+    }
+  }).spread(function (ruUser, created) {
+    if (created) {
+      console.log(ruUser.username + " made anew");
+    }
+    if (player) {
+      console.log(ruUser.username + ' exists: ' + JSON.stringify(ruUser));
+    }
+    else {
+      console.log('Nothing created!');
+    }
+
+  });
 
   var player = {
     firstName: "Daniel",
