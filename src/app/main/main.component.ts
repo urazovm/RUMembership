@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HasUserComponent } from '../shared/components/has-user/has-user.component';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -6,29 +7,10 @@ import { UserService } from '../shared/services/user.service';
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
-    email = 'Test Name';
-    username = 'testname';
-    profilePicture = '';
-    title = 'UI Test Screen';
+export class MainComponent extends HasUserComponent {
 
-    loggedIn = false;
 
-    constructor(private userService: UserService) { }
 
-    ngOnInit() {
-        this.getMe();
-    }
 
-    getMe() {
-        this.userService.getMe().subscribe(me => {
-            if (me) {
-                this.loggedIn = true;
-                console.log(me);
-                this.email = me.emailaddress;
-                this.username = me.username;
-                this.profilePicture = me.profilePicture;
-            }
-        });
-    }
+
 }

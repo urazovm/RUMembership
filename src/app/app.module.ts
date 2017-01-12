@@ -8,7 +8,7 @@ import { PlayerModule } from './players/player.module';
 //above should bring in the player routing too?
 
 import { MainComponent } from './main/main.component';
-
+import { IntroComponent } from './intro/intro.component';
 import { LoginComponent } from './users/login.component';
 import { RegisterComponent } from './users/register.component';
 
@@ -28,7 +28,8 @@ import 'hammerjs';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent
+    MainComponent,
+    IntroComponent
   ],
   imports: [
     AppRoutingModule,
