@@ -1,0 +1,13 @@
+.register {
+    width: 500px;
+}
+
+.input-small {
+    min-width: 200px;
+    width: 50%;
+}
+
+.input-large {
+    min-width: 400px;
+    width: 100%;
+}

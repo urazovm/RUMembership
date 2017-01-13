@@ -1,18 +1,110 @@
 <md-card elevation="5">
     <md-card-subtitle>
         <h2>
-            RU Membership Temp Register
+            RU Register
         </h2>
     </md-card-subtitle>
 
     <md-card-content>
-        <h2>Create an account</h2>
-        <form *ngIf="!submitted" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <md-input formControlName="name" required placeholder="Name"></md-input>
-            <md-input formControlName="username" required placeholder="Username"></md-input>
-            <md-input formControlName="email" required placeholder="example@email.com"></md-input>
-            <md-input formControlName="password" required type="password" placeholder="Password"></md-input>
-            <button type="submit" [disabled]="!registerForm.valid" md-raised-button color="primary">Register</button>
+        <form *ngIf="!submitted" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register">
+            <md-list>
+                <h2>Logon Info</h2>
+                <md-list-item>
+                    <md-input formControlName="username" required placeholder="Username"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="password" required type="password" placeholder="Choose a Password"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="passwordDup" required type="password" placeholder="Re-enter Password"></md-input>
+                </md-list-item>
+                <h2>Personal Info</h2>
+                <md-list-item>
+                    <md-input formControlName="firstName" required placeholder="First Name"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="nickName" placeholder="Nick Name"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="lastName" required placeholder="Surname"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="dob" required type="date" placeholder="Date of Birth"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-select formControlName="gender" required placeholder="Gender">
+                        <md-option value="Male">Male</md-option>
+                        <md-option value="Female">Female</md-option>
+                    </md-select>
+                </md-list-item>
+                <h2>Contact Details</h2>
+                <md-list-item>
+                    <md-input formControlName="email" required type="email" placeholder="example@email.com"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="contactNumber" required type="tel" placeholder="Contact Number"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="address1" required placeholder="Address Line 1" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="address2" placeholder="Address Line 2" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="town" required placeholder="Town/City" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="postCode" required placeholder="Postcode"></md-input>
+                </md-list-item>
+                <h2>Emergency, Medical and Safeguarding Details</h2>
+                <md-list-item>
+                    <md-input formControlName="emergencyName" required placeholder="Emergency Contact Name" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="emergencyRelationship" required placeholder="Emergency Contact Relationship" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="emergencyContactEmail" required type="email" placeholder="Emergency Contact Email" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="emergencyContactNumber" required type="tel" placeholder="Emergency Contact Number" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input formControlName="medical" placeholder="Medical Infomation" class="input-large"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-select id="u18" formControlName="u18" required placeholder="Are you under 18? If so, have you uploaded a consent form?">
+                        <md-option value="over18">I am over 18</md-option>
+                        <md-option value="u18">I am under 18 and have uploaded a consent form</md-option>
+                        <md-option value="u18NoConsent">I am under 18 and will upload a consent form at a later date</md-option>
+                    </md-select>
+                </md-list-item>
+                <md-list-item>
+                    <md-select id="student" formControlName="student" required placeholder="Are you in full time education?">
+                        <md-option value="true">Yes</md-option>
+                        <md-option value="false">No</md-option>
+                    </md-select>
+                </md-list-item>
+                <h2>Membership</h2>
+                <md-list-item>
+                    <md-select id="ukuMembership" placeholder="UKU Membership Type">
+                        <md-option>Basic</md-option>
+                        <md-option>Full</md-option>
+                    </md-select>
+                </md-list-item>
+                <md-list-item>
+                    <md-input required placeholder="UKU Username"></md-input>
+                </md-list-item>
+                <md-list-item>
+                    <md-input placeholder="WFDF Rules ID"></md-input>
+                </md-list-item>
+                <h2>Extra</h2>
+                <md-list-item>
+                    <md-checkbox required>I accept the terms and conditions, which shall be written later</md-checkbox>
+                </md-list-item>
+
+                <md-list-item><button type="submit" [disabled]="!registerForm.valid" md-raised-button color="primary">Register</button></md-list-item>
+            </md-list>
         </form>
         <md-spinner *ngIf="submitted" mode="indeterminate"></md-spinner>
         <p class="error" *ngIf="errorDiagnostic">{{errorDiagnostic}}</p>
